@@ -14,9 +14,11 @@ class Controller extends BaseController
 
     public function index()
     {
-    	return view("home", 
-    	[
-    		"name"=>"Sid"
-    	]);
+    	$test = [];
+    	$test['name'] = "Sid";
+    	$test['age'] = "25";
+    	$test['color'] = "red";
+    	return view("home", [ 
+    		"test"=>$test]);
     }
 }

@@ -16,8 +16,9 @@
     <body>
         <div class="flex-center position-ref full-height intro-body">
             <div class="content">
-                <div class="intro">
-                    Hi {{$name}}
+                <div class="intro" style="color: {{$test['color']}}">
+                    
+                  Hi  {{$test['name']}}
                 </div>
             </div>
         </div>
