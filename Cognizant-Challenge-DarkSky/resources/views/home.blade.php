@@ -17,13 +17,8 @@
         <div class="flex-center position-ref full-height intro-body">
             <div class="content">
                 <div class="intro">
-                    Using the Dark Sky API (https://darksky.net/dev/), create a basic app that changes color scheme
-                    depending on current conditions for a given location.
-                    <br>
-                    (Hint: The coordinates for our office are approximately 40°00&#39;59.2&quot;N 105°17&#39;09.2&quot;W or
-                    40.016457, -105.285884)
+                    Hi {{$name}}
                 </div>
-                <a class="btn btn-round" href="{{url('home')}}">Let's do this!</a>
             </div>
         </div>
     </body>
