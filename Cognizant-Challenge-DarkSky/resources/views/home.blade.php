@@ -31,33 +31,31 @@
 				<a class="btn btn-round blue-background" @click="hourly = !hourly">By the Hour</a>
 				<a class="btn btn-round blue-background" @click="weekly = !weekly">By the Week</a>
 			</div>
-        	<div class="row" style="text-align: center;">
-        		<div class="row border-full">
-        			<div class="col-lg-6">
-        				<div class="card p4">
-        					Overview	
-        				</div>
-        				
+        	<div class="row">
+        		<div class="row" style="text-align: center;">
+        			<div class="border-double col-sm-3 col-sm-offset-3">
+        				Overview	
         			</div>
-        			<div class="col-lg-6">
+        		
+        			<div class="border-double col-sm-3">
         				Summary
         			</div>
         		</div>
 			</div>
 			<div style="text-align: center;">
-				<div class="row border-full" v-show="minutely" id="by-minute">
+				<div class="row border-double" v-show="minutely" id="by-minute">
 					Minutely
 				</div>
 			</div>
 			
 			<div style="text-align: center;">
-				<div class="row border-full" v-show="hourly" id="by-hour">
+				<div class="row border-double" v-show="hourly" id="by-hour">
 					hourly
 				</div>
 			</div>
 			
 			<div style="text-align: center;">
-				<div class="row border-full" v-show="weekly" id="by-week">
+				<div class="row border-double" v-show="weekly" id="by-week">
 					Weekly
 				</div>
 			</div>

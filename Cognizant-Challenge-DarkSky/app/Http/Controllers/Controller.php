@@ -11,12 +11,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    private $key;
-
-    public function __construct()
-    {
-        $this->key = env("DARK_SKY_KEY");
-    }
+    //Dark Sky API key
+    private $key = "88490773836e03f0b8fa8e4d0511e6d2";
 
     public function index()
     {
@@ -38,9 +34,12 @@ class Controller extends BaseController
 
     public function getWeather($latitude, $longitude)
     {
-    	$api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude";
+    	// $api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude";
 
-    	$forecast = json_decode(file_get_contents($api));
+    	// $forecast = json_decode(file_get_contents($api));
+    	// return $forecast;
+
+    	$forecast = [];
     	return $forecast;
     }
 }
