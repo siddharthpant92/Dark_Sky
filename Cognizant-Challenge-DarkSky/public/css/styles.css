@@ -29,10 +29,13 @@
 
 .content {
     text-align: center;
+    margin: 5px;
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .intro {
-    color: black
     padding: 50px;
     margin: 50px;
     font-size: 18px;
@@ -52,7 +55,7 @@
     font-size: 16px;
 }
 
-.btn-round
+.round
 {
 	border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -63,26 +66,21 @@
 .heading
 {
 	text-align: center;
-	color: black;
 	font-size: 36px;
 	font-family: verdana;
-	text-shadow: 3px 5px 5px #808080
-
 }
 
 .subheading
 {
 	text-align: center;
-	color: black;
 	font-size: 20px;
 	font-family: verdana;
-	text-shadow: 3px 5px 8px #808080
 }
 
 .small-text
 {
 	font-size: 12px;
-	color: black;
+	font-weight: bold;
 }
 
 .border-double
@@ -92,4 +90,29 @@
 	margin-bottom: 30px;
 	/*padding-bottom: 30px;*/
 	border-style: double;
+}
+
+.night-clear-bg
+{
+	background: url("/images/night-clear.jpg");
+}
+.night-clear
+{
+	color: white;
+	font-weight: bold;
+/*	background-color: #2e4482;
+	opacity: 0.5;*/
+}
+
+.day-sunny-bg
+{
+	background: url("/images/day-sunny.jpg");
+}
+
+.day-sunny
+{
+	color: black;
+	font-weight: bold;
+/*	background-color: #2e4482;
+	opacity: 0.5;*/
 }

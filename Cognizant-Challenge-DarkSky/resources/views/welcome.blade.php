@@ -23,7 +23,7 @@
                     (Hint: The coordinates for our office are approximately 40°00&#39;59.2&quot;N 105°17&#39;09.2&quot;W or
                     40.016457, -105.285884)
                 </div>
-                <a class="btn btn-round" href="{{url('home')}}">Let's do this!</a>
+                <a class="btn round" href="{{url('home')}}">Let's do this!</a>
             </div>
         </div>
     </body>

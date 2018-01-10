@@ -16,6 +16,8 @@ class Controller extends BaseController
 
     public function index()
     {
+    	// var $icon_type;
+
     	$latitude = 40.016457;
     	$longitude = -105.285884;
     	// $test = [];
@@ -25,12 +27,39 @@ class Controller extends BaseController
 
     	$forecast = $this->getWeather($latitude, $longitude);
 
-    	//Do a switch on the icon and create an object with certain colors codes and styles to be sent to home.blade. then they can be accessed and used for styling throughout the page
-
+    	//Setting up based on the icon type
+    	switch($forecast->currently->icon)
+    	{
+    		case "clear-day":
+    			$icon_type = "wi wi-day-sunny";
+    			$type = "day-sunny";
+    			break;
+    		case "clear-night":
+    			$icon_type = "wi wi-night-clear";
+    			$type = "night-clear";
+    			break;
+    		case "rain":
+    			$icon_type = "wi wi-rain";
+    			$type = "rain";
+    			break;
+    		case "snow":
+    			$icon_type = "wi wi-snow";
+    			$type = "snow";
+    			break;
+    		case "cloudy":
+    			$icon_type = "wi wi-cloud";
+    			$type = "cloud";
+    			break;
+    		default:
+    			$icon_type = "wi day-light-wind";
+    			$type = "default";
+    			break;
+    	}
 
     	return view("home", [ 
     		"forecast"=>$forecast,
-    		"temp"=>"68"]);
+    		"type"=>$type,
+    		"icon_type"=>$icon_type,]);
     }
 
     public function getWeather($latitude, $longitude)
@@ -39,8 +68,5 @@ class Controller extends BaseController
 
     	$forecast = json_decode(file_get_contents($api));
     	return $forecast;
-
-    	// $forecast = [];
-    	// return $forecast;
     }
 }
