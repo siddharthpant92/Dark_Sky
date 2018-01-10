@@ -45,11 +45,12 @@
 
 .btn
 {
-	background-color: #ff4500; /* Green */
+	background-color: #09B7F5;
     border: none;
     color: black;
     font-family: "verdana";
-    padding: 15px 32px;
+    margin: 20px;
+    padding: 20px;
     text-align: center;
     font-size: 16px;
 }
@@ -62,7 +63,28 @@
     border-bottom-left-radius: 20px;
 }
 
+.heading
+{
+	text-align: center;
+	color: black;
+	font-size: 30px;
+	font-family: verdana;
+	text-shadow: 3px 5px 5px #808080
+
+}
+
+.subheading
+{
+	text-align: center;
+	color: black;
+	font-size: 20px;
+	font-family: verdana;
+	text-shadow: 3px 5px 8px #808080
+}
+
 .border-full
 {
+	margin: 30px;
+	padding: 50px;
 	border-style: double;
 }
