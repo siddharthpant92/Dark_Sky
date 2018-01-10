@@ -30,7 +30,7 @@ class Controller extends BaseController
     	//Setting up based on the icon type
     	switch($forecast->currently->icon)
     	{
-    		// case "clear-day":
+    		case "clear-day":
     			$icon_type = "wi wi-day-sunny";
     			$type = "day-sunny";
     			break;
@@ -67,6 +67,7 @@ class Controller extends BaseController
     	$api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude";
 
     	$forecast = json_decode(file_get_contents($api));
+    	dd($forecast);
     	return $forecast;
     }
 }
