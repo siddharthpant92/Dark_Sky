@@ -45,9 +45,6 @@
 
 .btn
 {
-	background-color: #09B7F5;
-    border: none;
-    color: black;
     font-family: "verdana";
     margin: 20px;
     padding: 20px;
@@ -92,6 +89,13 @@
 	border-style: double;
 }
 
+/*___Clear night___*/
+.night-clear-btn
+{
+	color: white;
+	background-color: #191970;
+	opacity: 0.8;
+}
 .night-clear-bg
 {
 	background: url("/images/night-clear.jpg");
@@ -100,10 +104,16 @@
 {
 	color: white;
 	font-weight: bold;
-/*	background-color: #2e4482;
-	opacity: 0.5;*/
 }
 
+/*___Sunny___*/
+.day-sunny-btn
+{
+	background-color: #09B7F5;
+    color: black;
+    opacity: 0.8;
+    font-weight: bold;
+}
 .day-sunny-bg
 {
 	background: url("/images/day-sunny.jpg");
@@ -113,6 +123,59 @@
 {
 	color: black;
 	font-weight: bold;
-/*	background-color: #2e4482;
-	opacity: 0.5;*/
+}
+
+/*____Cloudy____*/
+.cloud-btn
+{
+	color: 	black;
+	background-color: #696969;
+	opacity: 0.8;
+}
+.cloud-bg
+{
+	background: url("/images/cloud.jpg");
+}
+
+.cloud
+{
+	color: black;
+	font-weight: bold;
+}
+
+/*____Rainy____*/
+.rain-btn
+{
+	color: white;
+	background-color: #2F4F4F;
+	opacity: 0.8;
+}
+.rain-bg
+{
+	background: url("/images/rain.jpg");
+}
+
+.rain
+{
+	color: white;
+	font-weight: bold;
+}
+
+
+/*____Snowy____*/
+.snow-btn
+{
+	color: #00BFFF;
+	background-color: 	#483D8B;
+	opacity: 0.8;
+}
+.snow-bg
+{
+	background: url("/images/snow.jpg");
+}
+
+.snow
+{
+	color: 	#00BFFF;
+	font-weight: bold;
 }

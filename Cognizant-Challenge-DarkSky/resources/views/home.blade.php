@@ -21,27 +21,22 @@
     <body class="{!!$type!!}-bg {!!$type!!}">
         <div class="heading">
             Weather Forecast
+            {{$forecast->currently->icon}}
         </div>
         <div class="subheading">
-        	<span>Think the weather changes that quickly and want to <a href="{{url('home')}}"><u>check again?</u></a></span>
+        	<span>Think the weather changes that quickly and want to <a href="{{url('home')}}" class="{!!$type!!}"><u>check again?</u></a></span>
         </div>
 
         <div id="app" class="container {!!$type!!}" style="padding-top: 50px;">
-        	<div class="content">
-				<a class="btn round blue-background" @click="minutely = !minutely">By the Minute</a>
-				<a class="btn round blue-background" @click="hourly = !hourly">By the Hour</a>
-				<a class="btn round blue-background" @click="weekly = !weekly">By the Week</a>
-			</div>
         	<div class="row content round">
     			<div class="heading" style="padding-top: 10px;">
-    				<h2 class="subheading">{{$forecast->currently->summary}}
-    					<i class="{!!$icon_type!!}"></i>
-    				</h2>
+    				<i class="{!!$icon_type!!}"></i>
+    				<h2 class="subheading">{{$forecast->currently->summary}}</h2>
     				<div v-if="!celsius">
     					<h2>
     						@{{farenTemp}}&deg;F
     					</h2>
-    					<a @click="celsius = !celsius" class="small-text">Convert to &deg;C</a>
+    					<a @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;C</a>
     				</div>
     				<div v-else>
     					<h2>@{{celsiusTemp}}&deg;C</h2>
@@ -65,7 +60,11 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="content">
+				<a class="btn round {!!$type!!}-btn" @click="minutely = !minutely">By the Minute</a>
+				<a class="btn round {!!$type!!}-btn" @click="hourly = !hourly">By the Hour</a>
+				<a class="btn round {!!$type!!}-btn" @click="weekly = !weekly">By the Week</a>
+			</div>
 			<div class="content">
 				<div class="row border-double" v-show="minutely" id="by-minute">
 					Minutely

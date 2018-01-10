@@ -30,7 +30,7 @@ class Controller extends BaseController
     	//Setting up based on the icon type
     	switch($forecast->currently->icon)
     	{
-    		case "clear-day":
+    		// case "clear-day":
     			$icon_type = "wi wi-day-sunny";
     			$type = "day-sunny";
     			break;
@@ -46,20 +46,20 @@ class Controller extends BaseController
     			$icon_type = "wi wi-snow";
     			$type = "snow";
     			break;
-    		case "cloudy":
-    			$icon_type = "wi wi-cloud";
+    		case "partly-cloudy-day":
+    			$icon_type = "wi wi-day-cloudy";
     			$type = "cloud";
     			break;
     		default:
-    			$icon_type = "wi day-light-wind";
-    			$type = "default";
+    			$icon_type = "wi wi-day-cloudy";
+    			$type = "cloud";
     			break;
     	}
 
     	return view("home", [ 
     		"forecast"=>$forecast,
     		"type"=>$type,
-    		"icon_type"=>$icon_type,]);
+    		"icon_type"=>$icon_type]);
     }
 
     public function getWeather($latitude, $longitude)
