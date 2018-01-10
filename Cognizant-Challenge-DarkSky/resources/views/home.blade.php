@@ -11,11 +11,12 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        
+        <!-- Styles -->
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-        <!-- Styles -->
-       <link rel="stylesheet" type="text/css" href="{{ asset('/css/styles.css') }}" />
+        <link rel="stylesheet" type="text/css" href="/css/weather-icons.css"/>
+       <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     </head>
     <body>
         <div class="heading">
@@ -26,35 +27,55 @@
         </div>
 
         <div id="app" class="container" style="padding-top: 50px;">
-        	<div style="text-align: center;">
+        	<div class="content">
 				<a class="btn btn-round blue-background" @click="minutely = !minutely">By the Minute</a>
 				<a class="btn btn-round blue-background" @click="hourly = !hourly">By the Hour</a>
 				<a class="btn btn-round blue-background" @click="weekly = !weekly">By the Week</a>
 			</div>
-        	<div class="row">
-        		<div class="row" style="text-align: center;">
-        			<div class="border-double col-sm-3 col-sm-offset-3">
-        				Overview	
+        	<div class="row content">
+        			<div class="heading col-sm-3 col-sm-offset-3" style="padding-top: 10px;">
+        				<h2 class="subheading">{{$forecast->currently->summary}}</h2>
+        				<div v-if="!celsius">
+        					<h2>
+        						@{{farenTemp}}&deg;F
+        					</h2>
+        					<a @click="celsius = !celsius" class="small-text">Convert to &deg;C</a>
+        				</div>
+        				<div v-else>
+        					<h2>@{{celsiusTemp}}&deg;C</h2>
+        					<a @click="celsius = !celsius" class="small-text">Convert to &deg;F</a>
+        				</div>
+        			</div>
+
+        			<div class="border-double col-sm-3">
+        				<h4 class="subheading">
+        					Information <br>
+        				</h4>
+        				<p>
+        					<b>Feels like: </b> 
+        					<span v-if="!celsius">@{{farenFeelsTemp}}&deg;F</span>
+        					<span v-else>@{{celsiusFeelsTemp}}&deg;C</span>
+        					<br>
+        					<b>Time</b> is @{{time}}<br>
+        					<b>Humidity</b> is {{$forecast->currently->humidity}}<br>
+        				</p>	
+        				<span>[[More geeky details??]]</span>
         			</div>
         		
-        			<div class="border-double col-sm-3">
-        				Summary
-        			</div>
-        		</div>
 			</div>
-			<div style="text-align: center;">
+			<div class="content">
 				<div class="row border-double" v-show="minutely" id="by-minute">
 					Minutely
 				</div>
 			</div>
 			
-			<div style="text-align: center;">
+			<div class="content">
 				<div class="row border-double" v-show="hourly" id="by-hour">
-					hourly
+					Hourly
 				</div>
 			</div>
 			
-			<div style="text-align: center;">
+			<div class="content">
 				<div class="row border-double" v-show="weekly" id="by-week">
 					Weekly
 				</div>
@@ -76,7 +97,37 @@
     	{
     		minutely: false,
     		hourly: false,
-    		weekly: false
+    		weekly: false,
+    		celsius: false,
+    		farenTemp: {{$forecast->currently->temperature}},
+    		farenFeelsTemp: Math.round({{$forecast->currently->apparentTemperature}})
+    	},
+    	computed:
+    	{
+    		celsiusTemp: function()
+    		{
+    			return ((this.farenTemp-32)*5/9).toFixed(2);
+    		},
+    		celsiusFeelsTemp: function()
+    		{
+    			return (Math.round((this.farenFeelsTemp-32)*5/9));
+    		},
+    		time: function()
+    		{
+    			// multiplied by 1000 so that the argument is in milliseconds, not seconds.
+				var date = new Date({{$forecast->currently->time}}*1000);
+				// Hours part from the timestamp
+				var hours = date.getHours();
+				// Minutes part from the timestamp
+				var minutes = "0" + date.getMinutes();
+				// Seconds part from the timestamp
+				var seconds = "0" + date.getSeconds();
+
+				// Will display time in 10:30:23 format
+				var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+
+				return formattedTime;
+    		}
     	}
     })
 </script>

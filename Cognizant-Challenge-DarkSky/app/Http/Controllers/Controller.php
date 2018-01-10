@@ -29,17 +29,18 @@ class Controller extends BaseController
 
 
     	return view("home", [ 
-    		"forecast"=>$forecast]);
+    		"forecast"=>$forecast,
+    		"temp"=>"68"]);
     }
 
     public function getWeather($latitude, $longitude)
     {
-    	// $api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude";
+    	$api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude";
 
-    	// $forecast = json_decode(file_get_contents($api));
-    	// return $forecast;
-
-    	$forecast = [];
+    	$forecast = json_decode(file_get_contents($api));
     	return $forecast;
+
+    	// $forecast = [];
+    	// return $forecast;
     }
 }
