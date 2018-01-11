@@ -62,12 +62,7 @@
 	        <h2 class="subheading">
 	        	<span>Think the weather changes that quickly and want to <a href="{{url('home')}}" class="{!!$type!!}">check again?</a></span>
 	        </h2>
-			<!-- <div class="content">
-				<a class="btn round {!!$type!!}-btn" @click="minutely = !minutely">Over the next hour(by the minute)</a>
-				<a class="btn round {!!$type!!}-btn" @click="hourly = !hourly">Over the next 2 days(by the hour)</a>
-				<a class="btn round {!!$type!!}-btn" @click="weekly = !weekly">Over the next week(by day)</a>
-			</div> -->
-			<div class="content">
+<!-- 			<div class="content">
 				<a class="btn round {!!$type!!}-btn" @click="minutely = !minutely">Over the next hour(by the minute)</a>
 				<div class="row border-double" v-show="minutely" id="by-minute">
 					<div class="col-sm-3">
@@ -83,7 +78,7 @@
 						<b>After 60min</b>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			
 			<div class="content">
 				<a class="btn round {!!$type!!}-btn" @click="hourly = !hourly">For today and tomorrow</a>
@@ -92,40 +87,40 @@
 						{{$forecast->hourly->summary}}
 					</div>
 					<div class="col-sm-3">
-						<b>{{$hourly['object13']['time']}}</b>
+						<b>{{$hourly['13']['time']}}</b>
 						<br>
-						<i class="{!! $hourly['object13']['icon'] !!}"></i>
+						<i class="{!! $hourly['13']['icon'] !!}"></i>
 						<br>
-						<span>{{$hourly['object13']['summary']}}</span>
+						<span>{{$hourly['13']['summary']}}</span>
 						<br>
-						<span>{{$hourly['object13']['temperature']}}&deg;F</span>
+						<span>{{$hourly['13']['temperature']}}&deg;F</span>
 					</div>
 					<div class="col-sm-3">
-						<b>{{$hourly['object25']['time']}}</b>
+						<b>{{$hourly['25']['time']}}</b>
 						<br>
-						<i class="{!! $hourly['object25']['icon'] !!}"></i>
+						<i class="{!! $hourly['25']['icon'] !!}"></i>
 						<br>
-						<span>{{$hourly['object25']['summary']}}</span>
+						<span>{{$hourly['25']['summary']}}</span>
 						<br>
-						<span>{{$hourly['object25']['temperature']}}&deg;F</span>
+						<span>{{$hourly['25']['temperature']}}&deg;F</span>
 					</div>
 					<div class="col-sm-3">
-						<b>{{$hourly['object37']['time']}}</b>
+						<b>{{$hourly['37']['time']}}</b>
 						<br>
-						<i class="{!! $hourly['object37']['icon'] !!}"></i>
+						<i class="{!! $hourly['37']['icon'] !!}"></i>
 						<br>
-						<span>{{$hourly['object37']['summary']}}</span>
+						<span>{{$hourly['37']['summary']}}</span>
 						<br>
-						<span>{{$hourly['object37']['temperature']}}&deg;F</span>
+						<span>{{$hourly['37']['temperature']}}&deg;F</span>
 					</div>
 					<div class="col-sm-3">
-						<b>{{$hourly['object48']['time']}}</b>
+						<b>{{$hourly['48']['time']}}</b>
 						<br>
-						<i class="{!! $hourly['object48']['icon'] !!}"></i>
+						<i class="{!! $hourly['48']['icon'] !!}"></i>
 						<br>
-						<span>{{$hourly['object48']['summary']}}</span>
+						<span>{{$hourly['48']['summary']}}</span>
 						<br>
-						<span>{{$hourly['object48']['temperature']}}&deg;F</span>
+						<span>{{$hourly['48']['temperature']}}&deg;F</span>
 					</div>
 				</div>
 			</div>

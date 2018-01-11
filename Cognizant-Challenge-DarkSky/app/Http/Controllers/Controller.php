@@ -36,11 +36,15 @@ class Controller extends BaseController
     	//Constructing object to get the time and weather after 12hours, 24hours, 36hours, 48hours;
     	$hourly = $this->getHourlyData($forecast->hourly->data);
 
+
+        $daily =  $this->getDailyData($forecast->daily->data);
+
        	return view("home", [ 
     		"forecast"=>$forecast,
     		"type"=>$type,
     		"icon_type"=>$icon_type,
-    		"hourly"=>$hourly]);
+    		"hourly"=>$hourly,
+            "daily"=>$daily]);
     }
 
     public function getWeather($latitude, $longitude)
@@ -77,8 +81,21 @@ class Controller extends BaseController
     			$type = "cloud";
     			break;
     		default:
-    			$icon_type = "wi wi-day-cloudy";
-    			$type = "cloud";
+                if (strpos($icon, 'night') !== false) 
+                {
+                    $icon_type = "wi wi-night-clear";
+                    $type = "night-clear";       
+                }
+                if (strpos($icon, 'day') !== false) 
+                {
+                    $icon_type = "wi wi-night-clear";
+                    $type = "night-clear";       
+                }
+                else
+                {
+                    $icon_type = "wi wi-day-cloudy";
+                    $type = "cloud";
+                }
     			break;
     	}
 
@@ -91,17 +108,41 @@ class Controller extends BaseController
     	$count = 0;
     	foreach ($data as $hour) 
     	{
-    		$hourObject["object$count"]['time'] = date("d M @ H:i", $hour->time);
+    		$hourObject["$count"]['time'] = date("d M @ H:i", $hour->time);
 
-    		$hourObject["object$count"]['summary'] = $hour->summary;
-    		$hourObject["object$count"]['temperature'] = $hour->temperature;
+    		$hourObject["$count"]['summary'] = $hour->summary;
+    		$hourObject["$count"]['temperature'] = $hour->temperature;
 
     		list($icon_type, $type) = $this->getIconType($hour->icon);
 
-    		$hourObject["object$count"]['icon'] = $icon_type;
+    		$hourObject["$count"]['icon'] = $icon_type;
     		$count ++;
     	}
     	// dd($hourObject);
     	return $hourObject;
+    }
+
+
+    public function getDailyData($data)
+    {
+        // dd($data);
+        $count = 0;
+        foreach ($data as $day) 
+        {
+            $dayObject["$count"]['time'] = date("d M @ H:i", $day->time);
+
+            $dayObject["$count"]['summary'] = $day->summary;
+            $dayObject["$count"]['temperatureHigh'] = $day->temperatureHigh;
+            $dayObject["$count"]['temperatureLow'] = $day->temperatureLow;
+            $dayObject["$count"]['sunrise'] = date("d M @ H:i", $day->sunriseTime);
+            $dayObject["$count"]['sunset'] = date("d M @ H:i", $day->sunsetTime);
+
+            list($icon_type, $type) = $this->getIconType($day->icon);
+
+            $dayObject["$count"]['icon'] = $icon_type;
+            $count ++;
+        }
+        dd($dayObject);
+        return $dayObject;
     }
 }
