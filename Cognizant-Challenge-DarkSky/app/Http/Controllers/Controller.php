@@ -86,12 +86,12 @@ class Controller extends BaseController
                     $icon_type = "wi wi-night-clear";
                     $type = "night-clear";       
                 }
-                if (strpos($icon, 'day') !== false) 
+                elseif (strpos($icon, 'day') !== false) 
                 {
                     $icon_type = "wi wi-night-clear";
                     $type = "night-clear";       
                 }
-                if (strpos($icon, 'wind') !== false) 
+                elseif (strpos($icon, 'wind') !== false) 
                 {
                     $icon_type = "wi wi-cloudy-windy";
                     $type = "night-clear";       
@@ -101,6 +101,7 @@ class Controller extends BaseController
                     $icon_type = "wi wi-day-cloudy";
                     $type = "cloud";
                 }
+
     			break;
     	}
 

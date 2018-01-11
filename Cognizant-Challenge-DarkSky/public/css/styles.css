@@ -89,10 +89,21 @@
 	border-style: double;
 }
 
+.card-small
+{	
+	margin: 30px;
+	padding: 20px;
+	border-radius: 20px;
+	height: 150px;
+	width: 200px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    transition: 0.3s;
+}
+
 .card 
-{
-	margin: 10px;
-	padding: 10px;
+{	
+	margin: 30px;
+	padding: 20px;
 	border-radius: 20px;
 	height: 300px;
 	width: 200px;
@@ -110,6 +121,7 @@
 .night-clear-bg
 {
 	background: url("/images/night-clear.jpg");
+	background-size: 100%;
 }
 .night-clear
 {
@@ -128,6 +140,7 @@
 .day-sunny-bg
 {
 	background: url("/images/day-sunny.jpg");
+	background-size: 100%;
 }
 
 .day-sunny
@@ -146,6 +159,7 @@
 .cloud-bg
 {
 	background: url("/images/cloud.jpg");
+	background-size: 100%;
 }
 
 .cloud
@@ -164,6 +178,7 @@
 .rain-bg
 {
 	background: url("/images/rain.jpg");
+	background-size: 100%;
 }
 
 .rain
@@ -183,6 +198,7 @@
 .snow-bg
 {
 	background: url("/images/snow.jpg");
+	background-size: 100%;
 }
 
 .snow

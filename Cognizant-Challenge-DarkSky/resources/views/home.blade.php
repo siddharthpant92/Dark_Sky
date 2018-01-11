@@ -60,7 +60,7 @@
 			</div>
 			
 	        <h2 class="subheading">
-	        	<span>Think the weather changes that quickly and want to <a href="{{url('home')}}" class="{!!$type!!}">check again?</a></span>
+	        	<span>Think the weather changes that quickly and want to <a href="{{url('home')}}" class="{!!$type!!}"><u>check again?</u></a></span>
 	        </h2>
 <!-- 			<div class="content">
 				<a class="btn round {!!$type!!}-btn" @click="minutely = !minutely">Over the next hour(by the minute)</a>
@@ -87,7 +87,7 @@
 						{{$forecast->hourly->summary}}
 					</div>
 					<br>
-					<div class="col-sm-3">
+					<div class="col-sm-3 card-small">
 						<b>{{$hourly['12']['time']}}</b>
 						<br>
 						<i class="{!! $hourly['13']['icon'] !!}"></i>
@@ -96,7 +96,7 @@
 						<br>
 						<span>{{$hourly['12']['temperature']}}&deg;F</span>
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-3 card-small">
 						<b>{{$hourly['24']['time']}}</b>
 						<br>
 						<i class="{!! $hourly['25']['icon'] !!}"></i>
@@ -105,7 +105,7 @@
 						<br>
 						<span>{{$hourly['24']['temperature']}}&deg;F</span>
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-3 card-small">
 						<b>{{$hourly['36']['time']}}</b>
 						<br>
 						<i class="{!! $hourly['37']['icon'] !!}"></i>
@@ -114,7 +114,7 @@
 						<br>
 						<span>{{$hourly['36']['temperature']}}&deg;F</span>
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-3 card-small">
 						<b>{{$hourly['48']['time']}}</b>
 						<br>
 						<i class="{!! $hourly['48']['icon'] !!}"></i>
@@ -129,7 +129,7 @@
 			<div class="content">
 				<a class="btn round {!!$type!!}-btn" @click="weekly = !weekly">For the next week</a>
 				<div class="row border-double" v-show="weekly" id="by-week">
-					<div class="col-sm-3 col-sm-offset-2 card">
+					<div class="col-sm-3 card">
 						<b>{{ $daily['1']['time'] }}</b>
 						<br>
 						<i class="{!! $daily['1']['icon'] !!}"></i>
@@ -180,7 +180,7 @@
 						<i class="wi wi-strong-wind"> {{$daily['3']['windSpeed']}}km/hr</i>
 						<br>
 					</div>
-					<div class="col-sm-3 col-sm-offset-2 card">
+					<div class="col-sm-3 card">
 						<b>{{ $daily['4']['time'] }}</b>
 						<br>
 						<i class="{!! $daily['4']['icon'] !!}"></i>
