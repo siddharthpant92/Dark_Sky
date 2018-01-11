@@ -121,7 +121,7 @@
 .night-clear-bg
 {
 	background: url("/images/night-clear.jpg");
-	background-size: 100%;
+	background-size: cover;
 }
 .night-clear
 {
@@ -140,7 +140,7 @@
 .day-sunny-bg
 {
 	background: url("/images/day-sunny.jpg");
-	background-size: 100%;
+	background-size: cover;
 }
 
 .day-sunny
@@ -159,7 +159,7 @@
 .cloud-bg
 {
 	background: url("/images/cloud.jpg");
-	background-size: 100%;
+	background-size: cover;
 }
 
 .cloud
@@ -178,7 +178,7 @@
 .rain-bg
 {
 	background: url("/images/rain.jpg");
-	background-size: 100%;
+	background-size: cover;
 }
 
 .rain
@@ -191,18 +191,18 @@
 /*____Snowy____*/
 .snow-btn
 {
-	color: #00BFFF;
-	background-color: 	#483D8B;
+	color: #00008B;
+	background-color: #87CEFA;
 	opacity: 0.8;
 }
 .snow-bg
 {
 	background: url("/images/snow.jpg");
-	background-size: 100%;
+	background-size: cover;
 }
 
 .snow
 {
-	color: 	#00BFFF;
+	color: 	#00008B;
 	font-weight: bold;
 }
