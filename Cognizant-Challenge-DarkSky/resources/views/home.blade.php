@@ -19,20 +19,18 @@
        <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     </head>
     <body class="{!!$type!!}-bg {!!$type!!}">
-        <div class="heading">
-            Weather Forecast
-            {{$forecast->currently->icon}}
-        </div>
-        <div class="subheading">
-        	<span>Think the weather changes that quickly and want to <a href="{{url('home')}}" class="{!!$type!!}"><u>check again?</u></a></span>
-        </div>
-
+<!--         <div class="content">
+			<a class="btn round {!!$type!!}-btn">Boulder Office</a>
+			<a class="btn round {!!$type!!}-btn">India Office</a>
+			<a class="btn round {!!$type!!}-btn">Dubai Office</a>
+			<a class="btn round {!!$type!!}-btn">UK Office</a>
+		</div> -->
         <div id="app" class="container {!!$type!!}" style="padding-top: 50px;">
-        	<div class="row content round">
-    			<div class="heading" style="padding-top: 10px;">
+        	<div class=" heading row content round">
+    			<div>
     				<i class="{!!$icon_type!!}"></i>
-    				<h2 class="subheading">{{$forecast->currently->summary}}</h2>
-    				<div v-if="!celsius">
+    				<h2>{{$forecast->currently->summary}}</h2>
+    				<div v-if="!celsius" class="subheading">
     					<h2>
     						@{{farenTemp}}&deg;F
     					</h2>
@@ -43,7 +41,7 @@
     					<a @click="celsius = !celsius" class="small-text">Convert to &deg;F</a>
     				</div>
     			</div>
-    			<div class="content">
+    			<div class="content subheading">
     				<div class="col-sm-3">
 						<b>Feels like: </b> 
     					<span v-if="!celsius">@{{farenFeelsTemp}}&deg;F</span>
@@ -56,30 +54,106 @@
 						<b>Humidity</b> is {{$forecast->currently->humidity}}
 					</div>
 					<div class="col-sm-3">
-						<b>Wind Speed is</b> is {{$forecast->currently->windSpeed}}km/hr
+						<b>Wind Speed</b> is {{$forecast->currently->windSpeed}}km/hr
 					</div>
 				</div>
 			</div>
+			
+	        <h2 class="subheading">
+	        	<span>Think the weather changes that quickly and want to <a href="{{url('home')}}" class="{!!$type!!}">check again?</a></span>
+	        </h2>
+			<!-- <div class="content">
+				<a class="btn round {!!$type!!}-btn" @click="minutely = !minutely">Over the next hour(by the minute)</a>
+				<a class="btn round {!!$type!!}-btn" @click="hourly = !hourly">Over the next 2 days(by the hour)</a>
+				<a class="btn round {!!$type!!}-btn" @click="weekly = !weekly">Over the next week(by day)</a>
+			</div> -->
 			<div class="content">
-				<a class="btn round {!!$type!!}-btn" @click="minutely = !minutely">By the Minute</a>
-				<a class="btn round {!!$type!!}-btn" @click="hourly = !hourly">By the Hour</a>
-				<a class="btn round {!!$type!!}-btn" @click="weekly = !weekly">By the Week</a>
-			</div>
-			<div class="content">
+				<a class="btn round {!!$type!!}-btn" @click="minutely = !minutely">Over the next hour(by the minute)</a>
 				<div class="row border-double" v-show="minutely" id="by-minute">
-					Minutely
+					<div class="col-sm-3">
+						<b>After 15min</b>
+					</div>
+					<div class="col-sm-3">
+						<b>After 30min</b>
+					</div>
+					<div class="col-sm-3">
+						<b>After 45min</b>
+					</div>
+					<div class="col-sm-3">
+						<b>After 60min</b>
+					</div>
 				</div>
 			</div>
 			
 			<div class="content">
+				<a class="btn round {!!$type!!}-btn" @click="hourly = !hourly">For today and tomorrow</a>
 				<div class="row border-double" v-show="hourly" id="by-hour">
-					Hourly
+					<div class="subheading">
+						{{$forecast->hourly->summary}}
+					</div>
+					<div class="col-sm-3">
+						<b>{{$hourly['object13']['time']}}</b>
+						<br>
+						<i class="{!! $hourly['object13']['icon'] !!}"></i>
+						<br>
+						<span>{{$hourly['object13']['summary']}}</span>
+						<br>
+						<span>{{$hourly['object13']['temperature']}}&deg;F</span>
+					</div>
+					<div class="col-sm-3">
+						<b>{{$hourly['object25']['time']}}</b>
+						<br>
+						<i class="{!! $hourly['object25']['icon'] !!}"></i>
+						<br>
+						<span>{{$hourly['object25']['summary']}}</span>
+						<br>
+						<span>{{$hourly['object25']['temperature']}}&deg;F</span>
+					</div>
+					<div class="col-sm-3">
+						<b>{{$hourly['object37']['time']}}</b>
+						<br>
+						<i class="{!! $hourly['object37']['icon'] !!}"></i>
+						<br>
+						<span>{{$hourly['object37']['summary']}}</span>
+						<br>
+						<span>{{$hourly['object37']['temperature']}}&deg;F</span>
+					</div>
+					<div class="col-sm-3">
+						<b>{{$hourly['object48']['time']}}</b>
+						<br>
+						<i class="{!! $hourly['object48']['icon'] !!}"></i>
+						<br>
+						<span>{{$hourly['object48']['summary']}}</span>
+						<br>
+						<span>{{$hourly['object48']['temperature']}}&deg;F</span>
+					</div>
 				</div>
 			</div>
 			
 			<div class="content">
+				<a class="btn round {!!$type!!}-btn" @click="weekly = !weekly">Over the next week(by day)</a>
 				<div class="row border-double" v-show="weekly" id="by-week">
-					Weekly
+					<div class="col-sm-3">
+						<b>Day 1</b>
+					</div>
+					<div class="col-sm-3">
+						<b>Day 2</b>
+					</div>
+					<div class="col-sm-3">
+						<b>Day 3</b>
+					</div>
+					<div class="col-sm-3">
+						<b>Day 4</b>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<b>Day 5</b>
+					</div>
+					<div class="col-sm-3">
+						<b>Day 6</b>
+					</div>
+					<div class="col-sm-3">
+						<b>Day 7</b>
+					</div>
 				</div>
 			</div>
 			
@@ -88,6 +162,8 @@
 </html>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.27/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <!-- Latest compiled and minified CSS -->
@@ -116,8 +192,16 @@
     		},
     		time: function()
     		{
+    			var formattedTime = this.getTime({{$forecast->currently->time}});
+    			return formattedTime;
+    		}
+    	},
+    	methods:
+    	{
+    		getTime: function($time)
+    		{
     			// multiplied by 1000 so that the argument is in milliseconds, not seconds.
-				var date = new Date({{$forecast->currently->time}}*1000);
+				var date = new Date($time*1000);
 				// Hours part from the timestamp
 				var hours = date.getHours();
 				// Minutes part from the timestamp
@@ -129,6 +213,7 @@
 				var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 
 				return formattedTime;
+
     		}
     	}
     })

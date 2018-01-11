@@ -16,19 +16,45 @@ class Controller extends BaseController
 
     public function index()
     {
-    	// var $icon_type;
-
-    	$latitude = 40.016457;
-    	$longitude = -105.285884;
     	// $test = [];
     	// $test['name'] = "Sid";
     	// $test['age'] = "25";
     	// $test['color'] = "red";
 
+    	// $test['color'] = "nlue";
+    	// dd($test);
+
+    	$latitude = 40.016457;
+    	$longitude = -105.285884;
+
     	$forecast = $this->getWeather($latitude, $longitude);
 
     	//Setting up based on the icon type
-    	switch($forecast->currently->icon)
+
+    	list($icon_type, $type) = $this->getIconType($forecast->currently->icon);
+    	
+    	//Constructing object to get the time and weather after 12hours, 24hours, 36hours, 48hours;
+    	$hourly = $this->getHourlyData($forecast->hourly->data);
+
+       	return view("home", [ 
+    		"forecast"=>$forecast,
+    		"type"=>$type,
+    		"icon_type"=>$icon_type,
+    		"hourly"=>$hourly]);
+    }
+
+    public function getWeather($latitude, $longitude)
+    {
+    	$api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude";
+
+    	$forecast = json_decode(file_get_contents($api));
+
+    	return $forecast;
+    }
+
+    public function getIconType($icon)
+    {
+    	switch($icon)
     	{
     		case "clear-day":
     			$icon_type = "wi wi-day-sunny";
@@ -56,18 +82,26 @@ class Controller extends BaseController
     			break;
     	}
 
-    	return view("home", [ 
-    		"forecast"=>$forecast,
-    		"type"=>$type,
-    		"icon_type"=>$icon_type]);
+    	return array($icon_type, $type);
     }
 
-    public function getWeather($latitude, $longitude)
+    public function getHourlyData($data)
     {
-    	$api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude";
+    	// dd($data);
+    	$count = 0;
+    	foreach ($data as $hour) 
+    	{
+    		$hourObject["object$count"]['time'] = date("d M @ H:i", $hour->time);
 
-    	$forecast = json_decode(file_get_contents($api));
-    	dd($forecast);
-    	return $forecast;
+    		$hourObject["object$count"]['summary'] = $hour->summary;
+    		$hourObject["object$count"]['temperature'] = $hour->temperature;
+
+    		list($icon_type, $type) = $this->getIconType($hour->icon);
+
+    		$hourObject["object$count"]['icon'] = $icon_type;
+    		$count ++;
+    	}
+    	// dd($hourObject);
+    	return $hourObject;
     }
 }
