@@ -91,6 +91,11 @@ class Controller extends BaseController
                     $icon_type = "wi wi-night-clear";
                     $type = "night-clear";       
                 }
+                if (strpos($icon, 'wind') !== false) 
+                {
+                    $icon_type = "wi wi-cloudy-windy";
+                    $type = "night-clear";       
+                }
                 else
                 {
                     $icon_type = "wi wi-day-cloudy";
@@ -108,7 +113,9 @@ class Controller extends BaseController
     	$count = 0;
     	foreach ($data as $hour) 
     	{
-    		$hourObject["$count"]['time'] = date("d M @ H:i", $hour->time);
+            //Time is in UTC which is 7 hours ahead of MST
+    		$hourObject["$count"]['time'] = date("d M @ H:i", $hour->time - 60*60*7);
+
 
     		$hourObject["$count"]['summary'] = $hour->summary;
     		$hourObject["$count"]['temperature'] = $hour->temperature;
@@ -129,20 +136,22 @@ class Controller extends BaseController
         $count = 0;
         foreach ($data as $day) 
         {
-            $dayObject["$count"]['time'] = date("d M @ H:i", $day->time);
+            $dayObject["$count"]['time'] = date("D, d M", $day->time - 60*60*7);
 
             $dayObject["$count"]['summary'] = $day->summary;
             $dayObject["$count"]['temperatureHigh'] = $day->temperatureHigh;
             $dayObject["$count"]['temperatureLow'] = $day->temperatureLow;
-            $dayObject["$count"]['sunrise'] = date("d M @ H:i", $day->sunriseTime);
-            $dayObject["$count"]['sunset'] = date("d M @ H:i", $day->sunsetTime);
+            $dayObject["$count"]['sunrise'] = date("H:i", $day->sunriseTime - 60*60*7);
+            $dayObject["$count"]['sunset'] = date("H:i", $day->sunsetTime - 60*60*7);
+            $dayObject["$count"]['humidity'] = $day->humidity;
+            $dayObject["$count"]['windSpeed'] = $day->windSpeed;
 
             list($icon_type, $type) = $this->getIconType($day->icon);
 
             $dayObject["$count"]['icon'] = $icon_type;
             $count ++;
         }
-        dd($dayObject);
+        // dd($dayObject);
         return $dayObject;
     }
 }

@@ -89,6 +89,17 @@
 	border-style: double;
 }
 
+.card 
+{
+	margin: 10px;
+	padding: 10px;
+	border-radius: 20px;
+	height: 300px;
+	width: 200px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    transition: 0.3s;
+}
+
 /*___Clear night___*/
 .night-clear-btn
 {

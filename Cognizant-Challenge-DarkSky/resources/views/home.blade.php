@@ -86,32 +86,33 @@
 					<div class="subheading">
 						{{$forecast->hourly->summary}}
 					</div>
+					<br>
 					<div class="col-sm-3">
-						<b>{{$hourly['13']['time']}}</b>
+						<b>{{$hourly['12']['time']}}</b>
 						<br>
 						<i class="{!! $hourly['13']['icon'] !!}"></i>
 						<br>
-						<span>{{$hourly['13']['summary']}}</span>
+						<span>{{$hourly['12']['summary']}}</span>
 						<br>
-						<span>{{$hourly['13']['temperature']}}&deg;F</span>
+						<span>{{$hourly['12']['temperature']}}&deg;F</span>
 					</div>
 					<div class="col-sm-3">
-						<b>{{$hourly['25']['time']}}</b>
+						<b>{{$hourly['24']['time']}}</b>
 						<br>
 						<i class="{!! $hourly['25']['icon'] !!}"></i>
 						<br>
-						<span>{{$hourly['25']['summary']}}</span>
+						<span>{{$hourly['24']['summary']}}</span>
 						<br>
-						<span>{{$hourly['25']['temperature']}}&deg;F</span>
+						<span>{{$hourly['24']['temperature']}}&deg;F</span>
 					</div>
 					<div class="col-sm-3">
-						<b>{{$hourly['37']['time']}}</b>
+						<b>{{$hourly['36']['time']}}</b>
 						<br>
 						<i class="{!! $hourly['37']['icon'] !!}"></i>
 						<br>
-						<span>{{$hourly['37']['summary']}}</span>
+						<span>{{$hourly['36']['summary']}}</span>
 						<br>
-						<span>{{$hourly['37']['temperature']}}&deg;F</span>
+						<span>{{$hourly['36']['temperature']}}&deg;F</span>
 					</div>
 					<div class="col-sm-3">
 						<b>{{$hourly['48']['time']}}</b>
@@ -126,28 +127,126 @@
 			</div>
 			
 			<div class="content">
-				<a class="btn round {!!$type!!}-btn" @click="weekly = !weekly">Over the next week(by day)</a>
+				<a class="btn round {!!$type!!}-btn" @click="weekly = !weekly">For the next week</a>
 				<div class="row border-double" v-show="weekly" id="by-week">
-					<div class="col-sm-3">
-						<b>Day 1</b>
+					<div class="col-sm-3 col-sm-offset-2 card">
+						<b>{{ $daily['1']['time'] }}</b>
+						<br>
+						<i class="{!! $daily['1']['icon'] !!}"></i>
+						<br>
+						<span>{{$daily['1']['summary']}}</span>
+						<br><br>
+						<i class="wi wi-thermometer"> {{$daily['1']['temperatureLow']}} to {{$daily['1']['temperatureHigh']}}</i>
+						<br><br>
+						<i class="wi wi-sunrise"> {{$daily['1']['sunrise']}}</i>						
+						<i class="wi wi-sunset"> {{$daily['1']['sunset']}}</i>
+						<br><br>
+						<i class="wi wi-humidity"> {{$daily['1']['humidity']}}</i>
+						<br><br>
+						<i class="wi wi-strong-wind"> {{$daily['1']['windSpeed']}}km/hr</i>
+						<br>
 					</div>
-					<div class="col-sm-3">
-						<b>Day 2</b>
+					<div class="col-sm-3 card">
+						<b>{{ $daily['2']['time'] }}</b>
+						<br>
+						<i class="{!! $daily['2']['icon'] !!}"></i>
+						<br>
+						<span>{{$daily['2']['summary']}}</span>
+						<br><br>
+						<i class="wi wi-thermometer"> {{$daily['2']['temperatureLow']}} to {{$daily['2']['temperatureHigh']}}</i>
+						<br><br>
+						<i class="wi wi-sunrise"> {{$daily['2']['sunrise']}}</i>						
+						<i class="wi wi-sunset"> {{$daily['2']['sunset']}}</i>
+						<br><br>
+						<i class="wi wi-humidity"> {{$daily['2']['humidity']}}</i>
+						<br><br>
+						<i class="wi wi-strong-wind"> {{$daily['2']['windSpeed']}}km/hr</i>
+						<br>
 					</div>
-					<div class="col-sm-3">
-						<b>Day 3</b>
+					<div class="col-sm-3 card">
+						<b>{{ $daily['3']['time'] }}</b>
+						<br>
+						<i class="{!! $daily['3']['icon'] !!}"></i>
+						<br>
+						<span>{{$daily['3']['summary']}}</span>
+						<br><br>
+						<i class="wi wi-thermometer"> {{$daily['3']['temperatureLow']}} to {{$daily['3']['temperatureHigh']}}</i>
+						<br><br>
+						<i class="wi wi-sunrise"> {{$daily['3']['sunrise']}}</i>						
+						<i class="wi wi-sunset"> {{$daily['3']['sunset']}}</i>
+						<br><br>
+						<i class="wi wi-humidity"> {{$daily['3']['humidity']}}</i>
+						<br><br>
+						<i class="wi wi-strong-wind"> {{$daily['3']['windSpeed']}}km/hr</i>
+						<br>
 					</div>
-					<div class="col-sm-3">
-						<b>Day 4</b>
+					<div class="col-sm-3 col-sm-offset-2 card">
+						<b>{{ $daily['4']['time'] }}</b>
+						<br>
+						<i class="{!! $daily['4']['icon'] !!}"></i>
+						<br>
+						<span>{{$daily['4']['summary']}}</span>
+						<br><br>
+						<i class="wi wi-thermometer"> {{$daily['4']['temperatureLow']}} to {{$daily['4']['temperatureHigh']}}</i>
+						<br><br>
+						<i class="wi wi-sunrise"> {{$daily['4']['sunrise']}}</i>						
+						<i class="wi wi-sunset"> {{$daily['4']['sunset']}}</i>
+						<br><br>
+						<i class="wi wi-humidity"> {{$daily['4']['humidity']}}</i>
+						<br><br>
+						<i class="wi wi-strong-wind"> {{$daily['4']['windSpeed']}}km/hr</i>
+						<br>
 					</div>
-					<div class="col-sm-3 col-sm-offset-1">
-						<b>Day 5</b>
+					<div class="col-sm-3 card">
+						<b>{{ $daily['5']['time'] }}</b>
+						<br>
+						<i class="{!! $daily['5']['icon'] !!}"></i>
+						<br>
+						<span>{{$daily['5']['summary']}}</span>
+						<br><br>
+						<i class="wi wi-thermometer"> {{$daily['5']['temperatureLow']}} to {{$daily['5']['temperatureHigh']}}</i>
+						<br><br>
+						<i class="wi wi-sunrise"> {{$daily['5']['sunrise']}}</i>						
+						<i class="wi wi-sunset"> {{$daily['5']['sunset']}}</i>
+						<br><br>
+						<i class="wi wi-humidity"> {{$daily['5']['humidity']}}</i>
+						<br><br>
+						<i class="wi wi-strong-wind"> {{$daily['5']['windSpeed']}}km/hr</i>
+						<br>
 					</div>
-					<div class="col-sm-3">
-						<b>Day 6</b>
+					<div class="col-sm-3 card">
+						<b>{{ $daily['6']['time'] }}</b>
+						<br>
+						<i class="{!! $daily['6']['icon'] !!}"></i>
+						<br>
+						<span>{{$daily['6']['summary']}}</span>
+						<br><br>
+						<i class="wi wi-thermometer"> {{$daily['6']['temperatureLow']}} to {{$daily['6']['temperatureHigh']}}</i>
+						<br><br>
+						<i class="wi wi-sunrise"> {{$daily['6']['sunrise']}}</i>						
+						<i class="wi wi-sunset"> {{$daily['6']['sunset']}}</i>
+						<br><br>
+						<i class="wi wi-humidity"> {{$daily['6']['humidity']}}</i>
+						<br><br>
+						<i class="wi wi-strong-wind"> {{$daily['6']['windSpeed']}}km/hr</i>
+						<br>
 					</div>
-					<div class="col-sm-3">
-						<b>Day 7</b>
+					<div class="col-sm-3 card">
+						<b>{{ $daily['7']['time'] }}</b>
+						<br>
+						<i class="{!! $daily['7']['icon'] !!}"></i>
+						<br>
+						<span>{{$daily['7']['summary']}}</span>
+						<br><br>
+						<i class="wi wi-thermometer"> {{$daily['7']['temperatureLow']}} to {{$daily['7']['temperatureHigh']}}</i>
+						<br><br>
+						<i class="wi wi-sunrise"> {{$daily['7']['sunrise']}}</i>						
+						<i class="wi wi-sunset"> {{$daily['7']['sunset']}}</i>
+						<br><br>
+						<i class="wi wi-humidity"> {{$daily['7']['humidity']}}</i>
+						<br><br>
+						<i class="wi wi-strong-wind"> {{$daily['7']['windSpeed']}}km/hr</i>
+						<br>
 					</div>
 				</div>
 			</div>
