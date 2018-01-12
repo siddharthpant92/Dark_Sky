@@ -18,14 +18,29 @@
         <link rel="stylesheet" type="text/css" href="/css/weather-icons.css"/>
        <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     </head>
-    <body class="{!!$type!!}-bg {!!$type!!}">
-        <div class="content">
+    <body  id="app" class="{!!$type!!}-bg {!!$type!!}">
+    	<div class="header {!!$type!!}-btn">
+    		<div class="col-sm-4">
+    			<a v-if="!celsius" @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;C</a>
+				<a v-else @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;F</a>	
+    		</div>
+    		<div class="col-sm-4">
+    			<a v-if="!allOffices" class="small-text {!!$type!!}" @click="allOffices = !allOffices">Show me the details for a different office</a>
+    			<a v-else class="small-text {!!$type!!}" @click="allOffices = !allOffices">I don't care about any other office</a>
+    		</div>
+    		<div class="col-sm-4">
+    			<a class="small-text {!!$type!!}" @click="hourly = !hourly">For today and tomorrow</a>
+    			 | 
+    			<a class="small-text {!!$type!!}" @click="weekly = !weekly">For the next week</a>
+    		</div>
+        </div>
+        <div class="content" v-if="allOffices">
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Boulder'])}}">Boulder Office</a>
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'India'])}}">Bangalore Office</a>
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Australia'])}}">Melbourne Office</a>
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'UK'])}}">London Office</a>
-				</div>
-        <div id="app" class="container {!!$type!!}" style="padding-top: 50px;">
+		</div>
+        <div class="container {!!$type!!}" style="padding-top: 50px;">
         	<div class="row content round">
     			<div>    				
     				<span class="heading"> @{{time}}</span>
@@ -38,11 +53,9 @@
     					<h2>
     						@{{farenTemp}}&deg;F
     					</h2>
-    					<a @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;C</a>
     				</div>
     				<div v-else>
     					<h2>@{{celsiusTemp}}&deg;C</h2>
-    					<a @click="celsius = !celsius" class="small-text">Convert to &deg;F</a>
     				</div>
     			</div>
     			<br><br>
@@ -52,9 +65,6 @@
     					<span v-if="!celsius">@{{farenFeelsTemp}}&deg;F</span>
     					<span v-else>@{{celsiusFeelsTemp}}&deg;C</span>	    					
 					</div>
-					<!-- <div class="col-sm-3">
-						<b>Time</b> is @{{time}}		
-					</div> -->
 					<div class="col-sm-4">
 						<b>Humidity</b> is {{$forecast->currently->humidity}}
 					</div>
@@ -63,7 +73,7 @@
 					</div>
 				</div>
 			</div>
-			
+			<br><br>
 	        <h2 class="subheading">
 	        	<span>Think the weather changes that quickly and want to <a class="{!!$type!!}"><u>check again?</u></a></span>
 	        </h2>
@@ -86,7 +96,7 @@
 			</div> -->
 			
 			<div class="content">
-				<a class="btn round {!!$type!!}-btn" @click="hourly = !hourly">For today and tomorrow</a>
+				
 				<div class="row border-double" v-show="hourly" id="by-hour">
 					<div class="subheading">
 						{{$forecast->hourly->summary}}
@@ -132,7 +142,7 @@
 			</div>
 			
 			<div class="content">
-				<a class="btn round {!!$type!!}-btn" @click="weekly = !weekly">For the next week</a>
+				
 				<div class="row border-double" v-show="weekly" id="by-week">
 					<div class="col-sm-3 card">
 						<b>{{ $daily['1']['time'] }}</b>
@@ -141,7 +151,7 @@
 						<br>
 						<span>{{$daily['1']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['1']['temperatureLow']}} to {{$daily['1']['temperatureHigh']}}</i>
+						<i class="wi wi-thermometer"> {{$daily['1']['temperatureLow']}}&deg;F to {{$daily['1']['temperatureHigh']}}&deg;F</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['1']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['1']['sunset']}}</i>
@@ -158,7 +168,7 @@
 						<br>
 						<span>{{$daily['2']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['2']['temperatureLow']}} to {{$daily['2']['temperatureHigh']}}</i>
+						<i class="wi wi-thermometer"> {{$daily['2']['temperatureLow']}}&deg;F to {{$daily['2']['temperatureHigh']}}&deg;F</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['2']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['2']['sunset']}}</i>
@@ -175,7 +185,7 @@
 						<br>
 						<span>{{$daily['3']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['3']['temperatureLow']}} to {{$daily['3']['temperatureHigh']}}</i>
+						<i class="wi wi-thermometer"> {{$daily['3']['temperatureLow']}}&deg;F to {{$daily['3']['temperatureHigh']}}&deg;F</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['3']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['3']['sunset']}}</i>
@@ -192,7 +202,7 @@
 						<br>
 						<span>{{$daily['4']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['4']['temperatureLow']}} to {{$daily['4']['temperatureHigh']}}</i>
+						<i class="wi wi-thermometer"> {{$daily['4']['temperatureLow']}}&deg;F to {{$daily['4']['temperatureHigh']}}&deg;F</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['4']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['4']['sunset']}}</i>
@@ -209,7 +219,7 @@
 						<br>
 						<span>{{$daily['5']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['5']['temperatureLow']}} to {{$daily['5']['temperatureHigh']}}</i>
+						<i class="wi wi-thermometer"> {{$daily['5']['temperatureLow']}}&deg;F to {{$daily['5']['temperatureHigh']}}&deg;F</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['5']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['5']['sunset']}}</i>
@@ -226,7 +236,7 @@
 						<br>
 						<span>{{$daily['6']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['6']['temperatureLow']}} to {{$daily['6']['temperatureHigh']}}</i>
+						<i class="wi wi-thermometer"> {{$daily['6']['temperatureLow']}}&deg;F to {{$daily['6']['temperatureHigh']}}&deg;F&deg;F</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['6']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['6']['sunset']}}</i>
@@ -243,7 +253,7 @@
 						<br>
 						<span>{{$daily['7']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['7']['temperatureLow']}} to {{$daily['7']['temperatureHigh']}}</i>
+						<i class="wi wi-thermometer"> {{$daily['7']['temperatureLow']}}&deg;F to {{$daily['7']['temperatureHigh']}}&deg;F</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['7']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['7']['sunset']}}</i>
@@ -276,6 +286,7 @@
     		hourly: false,
     		weekly: false,
     		celsius: false,
+    		allOffices: false,
     		farenTemp: {{$forecast->currently->temperature}},
     		farenFeelsTemp: Math.round({{$forecast->currently->apparentTemperature}}),
     		place: "{{$place}}"
