@@ -33,13 +33,15 @@ class Controller extends BaseController
             $latitude = 12.981000;
             $longitude = 77.66328;
         }
-        elseif($place === "Dubai")
+        elseif($place === "Australia")
         {
-            dd("Dubai");
+            $latitude = -37.818721;
+            $longitude = 144.959246;
         }
         else
         {
-            dd("UK");
+            $latitude = 51.519270;
+            $longitude = -0.181799;
         }
 
     	$forecast = $this->getWeather($latitude, $longitude);
@@ -141,13 +143,15 @@ class Controller extends BaseController
                 //Adding 5hr 30min
                 $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time + 60*60*5 + 60*30);
             }
-            elseif($place === "Dubai")
+            elseif($place === "Australia")
             {
-                dd("Dubai");
+               //Adding 11hr
+                $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time + 60*60*11);
             }
             else
             {
-                dd("UK");
+                //London time is same as UTC
+                $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time);
             }
 
 
@@ -181,13 +185,15 @@ class Controller extends BaseController
                 //Adding 5hr 30min
                 $dayObject["$count"]['time'] = date("D, d M", $day->time - 60*60*5 + 60*30);
             }
-            elseif($place === "Dubai")
+            elseif($place === "Australia")
             {
-                dd("Dubai");
+                //Adding 11hr
+                $dayObject["$count"]['time'] = date("d M @ H:i", $day->time + 60*60*11);
             }
             else
             {
-                dd("UK");
+                //London time is same as UTC
+                $dayObject["$count"]['time'] = date("d M @ H:i", $day->time);
             }
 
 

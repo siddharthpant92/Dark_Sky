@@ -21,10 +21,10 @@
     <body class="{!!$type!!}-bg {!!$type!!}">
         <div class="content">
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Boulder'])}}">Boulder Office</a>
-			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'India'])}}">India Office</a>
-			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Dubai'])}}">Dubai Office</a>
-			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'UK'])}}">UK Office</a>
-		</div>
+			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'India'])}}">Bangalore Office</a>
+			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Australia'])}}">Melbourne Office</a>
+			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'UK'])}}">London Office</a>
+				</div>
         <div id="app" class="container {!!$type!!}" style="padding-top: 50px;">
         	<div class="row content round">
     			<div>    				
@@ -302,11 +302,20 @@
     			var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
 				];
 
-
-    			if(this.place=="India")
+				//Converting MST to correct times
+    			if(this.place==="India")
     			{
     				$time += 12*60*60 + 30*60;
     			}
+    			else if(this.place==="Australia")
+    			{
+    				$time += 18*60*60;
+    			}
+    			else if(this.place==="UK")
+    			{
+    				$time += 7*60*60;
+    			}
+
     			// Convert timestamp to milliseconds
 				var date = new Date($time*1000);
 
