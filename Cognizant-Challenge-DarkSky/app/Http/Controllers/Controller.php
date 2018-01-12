@@ -188,12 +188,12 @@ class Controller extends BaseController
             elseif($place === "Australia")
             {
                 //Adding 11hr
-                $dayObject["$count"]['time'] = date("d M @ H:i", $day->time + 60*60*11);
+                $dayObject["$count"]['time'] = date("D, d M", $day->time + 60*60*11);
             }
             else
             {
                 //London time is same as UTC
-                $dayObject["$count"]['time'] = date("d M @ H:i", $day->time);
+                $dayObject["$count"]['time'] = date("D, d M", $day->time);
             }
 
 
