@@ -150,6 +150,7 @@ class Controller extends BaseController
 
     		$hourObject["$count"]['summary'] = $hour->summary;
     		$hourObject["$count"]['temperature'] = $hour->temperature;
+            $hourObject["$count"]['temperatureCelsius'] = round(($hour->temperature-32)*5/9, 2);
 
     		list($icon_type, $type) = $this->getIconType($hour->icon);
 
@@ -192,7 +193,9 @@ class Controller extends BaseController
 
             $dayObject["$count"]['summary'] = $day->summary;
             $dayObject["$count"]['temperatureHigh'] = $day->temperatureHigh;
+            $dayObject["$count"]['temperatureHighCelsius'] = round(($day->temperatureHigh-32)*5/9);
             $dayObject["$count"]['temperatureLow'] = $day->temperatureLow;
+            $dayObject["$count"]['temperatureLowCelsius'] = round(($day->temperatureLow-32)*5/9);
             $dayObject["$count"]['sunrise'] = date("H:i", $day->sunriseTime - 60*60*7);
             $dayObject["$count"]['sunset'] = date("H:i", $day->sunsetTime - 60*60*7);
             $dayObject["$count"]['humidity'] = $day->humidity;

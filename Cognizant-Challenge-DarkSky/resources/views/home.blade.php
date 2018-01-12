@@ -80,26 +80,8 @@
 	        <h2 class="subheading">
 	        	<span>Think the weather changes that quickly and want to <a class="{!!$type!!}"><u>check again?</u></a></span>
 	        </h2>
-<!-- 			<div class="content">
-				<a class="btn round {!!$type!!}-btn" @click="minutely = !minutely">Over the next hour(by the minute)</a>
-				<div class="row border-double" v-show="minutely" id="by-minute">
-					<div class="col-sm-3">
-						<b>After 15min</b>
-					</div>
-					<div class="col-sm-3">
-						<b>After 30min</b>
-					</div>
-					<div class="col-sm-3">
-						<b>After 45min</b>
-					</div>
-					<div class="col-sm-3">
-						<b>After 60min</b>
-					</div>
-				</div>
-			</div> -->
-			
-			<div class="content">
-				
+
+			<div class="content">				
 				<div class="row border-double" v-show="hourly" id="by-hour">
 					<div class="subheading">
 						{{$forecast->hourly->summary}}
@@ -112,7 +94,8 @@
 						<br>
 						<span>{{$hourly['12']['summary']}}</span>
 						<br>
-						<span>{{$hourly['12']['temperature']}}&deg;F</span>
+						<span v-if="!celsius">{{$hourly['12']['temperature']}}&deg;F</span>
+						<span v-else>{{$hourly['12']['temperatureCelsius']}}&deg;C</span>
 					</div>
 					<div class="col-sm-3 card-small">
 						<b>{{$hourly['24']['time']}}</b>
@@ -121,7 +104,8 @@
 						<br>
 						<span>{{$hourly['24']['summary']}}</span>
 						<br>
-						<span>{{$hourly['24']['temperature']}}&deg;F</span>
+						<span v-if="!celsius">{{$hourly['24']['temperature']}}&deg;F</span>
+						<span v-else>{{$hourly['24']['temperatureCelsius']}}&deg;C</span>
 					</div>
 					<div class="col-sm-3 card-small">
 						<b>{{$hourly['36']['time']}}</b>
@@ -130,7 +114,8 @@
 						<br>
 						<span>{{$hourly['36']['summary']}}</span>
 						<br>
-						<span>{{$hourly['36']['temperature']}}&deg;F</span>
+						<span v-if="!celsius">{{$hourly['36']['temperature']}}&deg;F</span>
+						<span v-else>{{$hourly['36']['temperatureCelsius']}}&deg;C</span>
 					</div>
 					<div class="col-sm-3 card-small">
 						<b>{{$hourly['48']['time']}}</b>
@@ -139,7 +124,8 @@
 						<br>
 						<span>{{$hourly['48']['summary']}}</span>
 						<br>
-						<span>{{$hourly['48']['temperature']}}&deg;F</span>
+						<span v-if="!celsius">{{$hourly['48']['temperature']}}&deg;F</span>
+						<span v-else>{{$hourly['48']['temperatureCelsius']}}&deg;C</span>
 					</div>
 				</div>
 			</div>
@@ -154,7 +140,10 @@
 						<br>
 						<span>{{$daily['1']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['1']['temperatureLow']}}&deg;F to {{$daily['1']['temperatureHigh']}}&deg;F</i>
+						<i class="wi wi-thermometer">
+							<span v-if="!celsius"> {{$daily['1']['temperatureLow']}}&deg;F to {{$daily['1']['temperatureHigh']}}&deg;F</span>
+							<span v-else> {{$daily['1']['temperatureLowCelsius']}}&deg;C to {{$daily['1']['temperatureHighCelsius']}}&deg;C</span>
+						</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['1']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['1']['sunset']}}</i>
@@ -171,7 +160,10 @@
 						<br>
 						<span>{{$daily['2']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['2']['temperatureLow']}}&deg;F to {{$daily['2']['temperatureHigh']}}&deg;F</i>
+						<i class="wi wi-thermometer">
+							<span v-if="!celsius"> {{$daily['2']['temperatureLow']}}&deg;F to {{$daily['2']['temperatureHigh']}}&deg;F</span>
+							<span v-else> {{$daily['2']['temperatureLowCelsius']}}&deg;C to {{$daily['2']['temperatureHighCelsius']}}&deg;C</span>
+						</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['2']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['2']['sunset']}}</i>
@@ -188,7 +180,10 @@
 						<br>
 						<span>{{$daily['3']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['3']['temperatureLow']}}&deg;F to {{$daily['3']['temperatureHigh']}}&deg;F</i>
+						<i class="wi wi-thermometer">
+							<span v-if="!celsius"> {{$daily['3']['temperatureLow']}}&deg;F to {{$daily['3']['temperatureHigh']}}&deg;F</span>
+							<span v-else> {{$daily['3']['temperatureLowCelsius']}}&deg;C to {{$daily['3']['temperatureHighCelsius']}}&deg;C</span>
+						</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['3']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['3']['sunset']}}</i>
@@ -205,7 +200,10 @@
 						<br>
 						<span>{{$daily['4']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['4']['temperatureLow']}}&deg;F to {{$daily['4']['temperatureHigh']}}&deg;F</i>
+						<i class="wi wi-thermometer">
+							<span v-if="!celsius"> {{$daily['4']['temperatureLow']}}&deg;F to {{$daily['4']['temperatureHigh']}}&deg;F</span>
+							<span v-else> {{$daily['4']['temperatureLowCelsius']}}&deg;C to {{$daily['4']['temperatureHighCelsius']}}&deg;C</span>
+						</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['4']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['4']['sunset']}}</i>
@@ -222,7 +220,10 @@
 						<br>
 						<span>{{$daily['5']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['5']['temperatureLow']}}&deg;F to {{$daily['5']['temperatureHigh']}}&deg;F</i>
+						<i class="wi wi-thermometer">
+							<span v-if="!celsius"> {{$daily['5']['temperatureLow']}}&deg;F to {{$daily['5']['temperatureHigh']}}&deg;F</span>
+							<span v-else> {{$daily['5']['temperatureLowCelsius']}}&deg;C to {{$daily['5']['temperatureHighCelsius']}}&deg;C</span>
+						</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['5']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['5']['sunset']}}</i>
@@ -239,7 +240,10 @@
 						<br>
 						<span>{{$daily['6']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['6']['temperatureLow']}}&deg;F to {{$daily['6']['temperatureHigh']}}&deg;F&deg;F</i>
+						<i class="wi wi-thermometer">
+							<span v-if="!celsius"> {{$daily['6']['temperatureLow']}}&deg;F to {{$daily['6']['temperatureHigh']}}&deg;F</span>
+							<span v-else> {{$daily['6']['temperatureLowCelsius']}}&deg;C to {{$daily['6']['temperatureHighCelsius']}}&deg;C</span>
+						</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['6']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['6']['sunset']}}</i>
@@ -256,7 +260,10 @@
 						<br>
 						<span>{{$daily['7']['summary']}}</span>
 						<br><br>
-						<i class="wi wi-thermometer"> {{$daily['7']['temperatureLow']}}&deg;F to {{$daily['7']['temperatureHigh']}}&deg;F</i>
+						<i class="wi wi-thermometer">
+							<span v-if="!celsius"> {{$daily['7']['temperatureLow']}}&deg;F to {{$daily['7']['temperatureHigh']}}&deg;F</span>
+							<span v-else> {{$daily['7']['temperatureLowCelsius']}}&deg;C to {{$daily['7']['temperatureHighCelsius']}}&deg;C</span>
+						</i>
 						<br><br>
 						<i class="wi wi-sunrise"> {{$daily['7']['sunrise']}}</i>						
 						<i class="wi wi-sunset"> {{$daily['7']['sunset']}}</i>
