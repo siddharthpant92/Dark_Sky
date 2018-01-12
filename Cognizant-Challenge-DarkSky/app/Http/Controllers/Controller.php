@@ -16,14 +16,7 @@ class Controller extends BaseController
 
     public function index($place)
     {
-    	// $test = [];
-    	// $test['name'] = "Sid";
-    	// $test['age'] = "25";
-    	// $test['color'] = "red";
-
-    	// $test['color'] = "nlue";
-    	// dd($test);
-        if($place === "Boulder")
+    	if($place === "Boulder")
         {
         	$latitude = 40.016457;
         	$longitude = -105.285884;

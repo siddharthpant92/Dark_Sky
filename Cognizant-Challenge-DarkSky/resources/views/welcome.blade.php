@@ -8,10 +8,10 @@
         <title>Dark Sky</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
         <!-- Styles -->
-       <link rel="stylesheet" type="text/css" href="{{ asset('/css/styles.css') }}" />
+       <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     </head>
     <body>
         <div class="flex-center position-ref full-height intro-body">

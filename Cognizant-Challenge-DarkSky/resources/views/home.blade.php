@@ -10,25 +10,28 @@
         <title>Dark Sky</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         
         <!-- Styles -->
-        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="/css/weather-icons.css"/>
-       <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+       	<link rel="stylesheet" type="text/css" href="/css/styles.css" />	
+
     </head>
     <body  id="app" class="{!!$type!!}-bg {!!$type!!}">
-    	<div class="header {!!$type!!}-btn">
-    		<div class="col-sm-4">
+    	<div class="row header {!!$type!!}-btn">
+    		<div class="col-sm-3">
+    			<a href="{{url('/')}}" class="small-text {!!$type!!}">Main page</a>
+    		</div>
+    		<div class="col-sm-3">
     			<a v-if="!celsius" @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;C</a>
 				<a v-else @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;F</a>	
     		</div>
-    		<div class="col-sm-4">
+    		<div class="col-sm-3">
     			<a v-if="!allOffices" class="small-text {!!$type!!}" @click="allOffices = !allOffices">Show me the details for a different office</a>
     			<a v-else class="small-text {!!$type!!}" @click="allOffices = !allOffices">I don't care about any other office</a>
     		</div>
-    		<div class="col-sm-4">
+    		<div class="col-sm-3">
     			<a class="small-text {!!$type!!}" @click="hourly = !hourly">For today and tomorrow</a>
     			 | 
     			<a class="small-text {!!$type!!}" @click="weekly = !weekly">For the next week</a>
@@ -271,11 +274,6 @@
 </html>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.27/vue.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-<script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-<!-- Latest compiled and minified CSS -->
 <script>
     new Vue(
     {
