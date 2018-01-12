@@ -14,7 +14,7 @@ class Controller extends BaseController
     //Dark Sky API key
     private $key = "88490773836e03f0b8fa8e4d0511e6d2";
 
-    public function index()
+    public function index($place)
     {
     	// $test = [];
     	// $test['name'] = "Sid";
@@ -23,28 +23,43 @@ class Controller extends BaseController
 
     	// $test['color'] = "nlue";
     	// dd($test);
-
-    	$latitude = 40.016457;
-    	$longitude = -105.285884;
+        if($place === "Boulder")
+        {
+        	$latitude = 40.016457;
+        	$longitude = -105.285884;
+        }
+        elseif ($place === "India")
+        {
+            $latitude = 12.981000;
+            $longitude = 77.66328;
+        }
+        elseif($place === "Dubai")
+        {
+            dd("Dubai");
+        }
+        else
+        {
+            dd("UK");
+        }
 
     	$forecast = $this->getWeather($latitude, $longitude);
 
     	//Setting up based on the icon type
-
     	list($icon_type, $type) = $this->getIconType($forecast->currently->icon);
     	
     	//Constructing object to get the time and weather after 12hours, 24hours, 36hours, 48hours;
-    	$hourly = $this->getHourlyData($forecast->hourly->data);
+    	$hourly = $this->getHourlyData($forecast->hourly->data, $place);
 
-
-        $daily =  $this->getDailyData($forecast->daily->data);
+        //Constructing object to get the time and weather for each day in the next week;
+        $daily =  $this->getDailyData($forecast->daily->data, $place);
 
        	return view("home", [ 
     		"forecast"=>$forecast,
     		"type"=>$type,
     		"icon_type"=>$icon_type,
     		"hourly"=>$hourly,
-            "daily"=>$daily]);
+            "daily"=>$daily,
+            "place"=>$place]);
     }
 
     public function getWeather($latitude, $longitude)
@@ -108,14 +123,32 @@ class Controller extends BaseController
     	return array($icon_type, $type);
     }
 
-    public function getHourlyData($data)
+    public function getHourlyData($data, $place)
     {
     	// dd($data);
     	$count = 0;
     	foreach ($data as $hour) 
     	{
-            //Time is in UTC which is 7 hours ahead of MST
-    		$hourObject["$count"]['time'] = date("d M @ H:i", $hour->time - 60*60*7);
+
+            //Time is in UTC which has to be converted
+            if($place === "Boulder")
+            {
+                //Subtracting 7 hours
+                $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time - 60*60*7);
+            }
+            elseif ($place === "India")
+            {
+                //Adding 5hr 30min
+                $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time + 60*60*5 + 60*30);
+            }
+            elseif($place === "Dubai")
+            {
+                dd("Dubai");
+            }
+            else
+            {
+                dd("UK");
+            }
 
 
     		$hourObject["$count"]['summary'] = $hour->summary;
@@ -131,13 +164,32 @@ class Controller extends BaseController
     }
 
 
-    public function getDailyData($data)
+    public function getDailyData($data, $place)
     {
         // dd($data);
         $count = 0;
         foreach ($data as $day) 
         {
-            $dayObject["$count"]['time'] = date("D, d M", $day->time - 60*60*7);
+            //Time is in UTC which has to be converted
+            if($place === "Boulder")
+            {
+                //Subtracting 7 hours
+                $dayObject["$count"]['time'] = date("D, d M", $day->time - 60*60*7);
+            }
+            elseif ($place === "India")
+            {
+                //Adding 5hr 30min
+                $dayObject["$count"]['time'] = date("D, d M", $day->time - 60*60*5 + 60*30);
+            }
+            elseif($place === "Dubai")
+            {
+                dd("Dubai");
+            }
+            else
+            {
+                dd("UK");
+            }
+
 
             $dayObject["$count"]['summary'] = $day->summary;
             $dayObject["$count"]['temperatureHigh'] = $day->temperatureHigh;

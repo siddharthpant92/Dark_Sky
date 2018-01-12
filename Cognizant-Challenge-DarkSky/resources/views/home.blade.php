@@ -19,18 +19,22 @@
        <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     </head>
     <body class="{!!$type!!}-bg {!!$type!!}">
-<!--         <div class="content">
-			<a class="btn round {!!$type!!}-btn">Boulder Office</a>
-			<a class="btn round {!!$type!!}-btn">India Office</a>
-			<a class="btn round {!!$type!!}-btn">Dubai Office</a>
-			<a class="btn round {!!$type!!}-btn">UK Office</a>
-		</div> -->
+        <div class="content">
+			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Boulder'])}}">Boulder Office</a>
+			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'India'])}}">India Office</a>
+			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Dubai'])}}">Dubai Office</a>
+			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'UK'])}}">UK Office</a>
+		</div>
         <div id="app" class="container {!!$type!!}" style="padding-top: 50px;">
-        	<div class=" heading row content round">
-    			<div>
-    				<i class="{!!$icon_type!!}"></i>
-    				<h2>{{$forecast->currently->summary}}</h2>
-    				<div v-if="!celsius" class="subheading">
+        	<div class="row content round">
+    			<div>    				
+    				<span class="heading"> @{{time}}</span>
+    				<br>
+    				<div class="subheading">
+	    				<i class="{!!$icon_type!!}"></i>
+	    				<span>{{$forecast->currently->summary}}</span>
+	    			</div>
+    				<div v-if="!celsius">
     					<h2>
     						@{{farenTemp}}&deg;F
     					</h2>
@@ -41,26 +45,27 @@
     					<a @click="celsius = !celsius" class="small-text">Convert to &deg;F</a>
     				</div>
     			</div>
-    			<div class="content subheading">
-    				<div class="col-sm-3">
+    			<br><br>
+    			<div class="content">
+    				<div class="col-sm-4">
 						<b>Feels like: </b> 
     					<span v-if="!celsius">@{{farenFeelsTemp}}&deg;F</span>
     					<span v-else>@{{celsiusFeelsTemp}}&deg;C</span>	    					
 					</div>
-					<div class="col-sm-3">
+					<!-- <div class="col-sm-3">
 						<b>Time</b> is @{{time}}		
-					</div>
-					<div class="col-sm-3">
+					</div> -->
+					<div class="col-sm-4">
 						<b>Humidity</b> is {{$forecast->currently->humidity}}
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<b>Wind Speed</b> is {{$forecast->currently->windSpeed}}km/hr
 					</div>
 				</div>
 			</div>
 			
 	        <h2 class="subheading">
-	        	<span>Think the weather changes that quickly and want to <a href="{{url('home')}}" class="{!!$type!!}"><u>check again?</u></a></span>
+	        	<span>Think the weather changes that quickly and want to <a class="{!!$type!!}"><u>check again?</u></a></span>
 	        </h2>
 <!-- 			<div class="content">
 				<a class="btn round {!!$type!!}-btn" @click="minutely = !minutely">Over the next hour(by the minute)</a>
@@ -272,7 +277,8 @@
     		weekly: false,
     		celsius: false,
     		farenTemp: {{$forecast->currently->temperature}},
-    		farenFeelsTemp: Math.round({{$forecast->currently->apparentTemperature}})
+    		farenFeelsTemp: Math.round({{$forecast->currently->apparentTemperature}}),
+    		place: "{{$place}}"
     	},
     	computed:
     	{
@@ -286,25 +292,41 @@
     		},
     		time: function()
     		{
-    			var formattedTime = this.getTime({{$forecast->currently->time}});
-    			return formattedTime;
+    			return this.getTime({{$forecast->currently->time}});
     		}
     	},
     	methods:
     	{
     		getTime: function($time)
     		{
-    			// multiplied by 1000 so that the argument is in milliseconds, not seconds.
+    			var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+				];
+
+
+    			if(this.place=="India")
+    			{
+    				$time += 12*60*60 + 30*60;
+    			}
+    			// Convert timestamp to milliseconds
 				var date = new Date($time*1000);
-				// Hours part from the timestamp
+
+				// Month
+ 				var month = monthNames[date.getMonth()];
+
+				// Day
+				var day = date.getDate();
+
+				// Hours
 				var hours = date.getHours();
-				// Minutes part from the timestamp
+
+				// Minutes
 				var minutes = "0" + date.getMinutes();
-				// Seconds part from the timestamp
+
+				// Seconds
 				var seconds = "0" + date.getSeconds();
 
-				// Will display time in 10:30:23 format
-				var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+				// Display date time in MM-dd-yyyy h:m:s format
+				var formattedTime = day+' '+month+'   '+hours + ':' + minutes.substr(-2);
 
 				return formattedTime;
 
