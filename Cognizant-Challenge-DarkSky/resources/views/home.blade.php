@@ -313,7 +313,7 @@
     	},
     	methods:
     	{
-    		getTime: function($time)
+    		getTime: function(time)
     		{
     			var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
 				];
@@ -321,19 +321,19 @@
 				//Converting MST to correct times
     			if(this.place==="India")
     			{
-    				$time += 12*60*60 + 30*60;
+    				time += 12*60*60 + 30*60;
     			}
     			else if(this.place==="Australia")
     			{
-    				$time += 18*60*60;
+    				time += 18*60*60;
     			}
     			else if(this.place==="UK")
     			{
-    				$time += 7*60*60;
+    				time += 7*60*60;
     			}
 
     			// Convert timestamp to milliseconds
-				var date = new Date($time*1000);
+				var date = new Date(time*1000);
 
 				// Month
  				var month = monthNames[date.getMonth()];

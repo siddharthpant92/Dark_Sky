@@ -30,12 +30,12 @@
 	    			<div class="col-sm-6">
 	    				<input type="text" id="datepicker2" v-model="date2" placeholder="Select end date">
 	    			</div>
-	    			<a @click="getDates">Get dates</a>
+	    			<a @click="getDates" :href="url">Get dates</a>
 	    		</div>
     		</div>
     		<div class="row">
 	    		<template v-for="date in dateRange" track-by="$index">
-	    			<p>@{{date}}}</p>
+	    			<p>@{{date}}</p>
 	    		</template>
 	    	</div>
     	</div>
@@ -53,7 +53,17 @@
 		{
 			date1: '',
 			date2: '',
-			dateRange: []
+			dateRange: [],
+			url: ''
+		},
+		watch:
+		{
+			date2: function()
+			{
+				var d1 = new Date(this.date1).getTime()/1000;
+				var d2 = new Date(this.date2).getTime()/1000;
+				this.url =  "http://localhost:8000/time-machine/"+d1+"-"+d2;
+			}
 		},
 		methods:
 		{
@@ -79,6 +89,7 @@
 
 				}
 			},
+			
 		}
 	});
 

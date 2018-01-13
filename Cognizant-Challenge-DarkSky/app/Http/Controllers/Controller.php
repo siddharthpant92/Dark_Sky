@@ -6,6 +6,9 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use DatePeriod;
+use DateInterval;
+use DateTime;
 
 class Controller extends BaseController
 {
@@ -58,13 +61,44 @@ class Controller extends BaseController
     }
 
 
-    public function timeMachine()
+    public function timeMachine($date1 = null, $date2 = null)
     {
-        //how to get those dates here??
+        $counter = 0;
+        
+        //For Boulder only
+        $latitude = 40.016457;
+        $longitude = -105.285884;
+        
+        if(empty($date1) and empty($date2))
+        {
+            return view("timeMachine");
+        }
         // Calculated date range.
+        else
+        {
+            //Getting the difference in days
+            $numDays = abs($date1 - $date2)/60/60/24;
+            for ($i = 0; $i <= $numDays; $i++) 
+            {
+                // echo date('d M Y', strtotime("+{$i} day", $date1)) . '<br />';
+                $timeMachineData[$counter]['timestamp'] = $date1;
+                $timeMachineData[$counter]['date'] = date('d M Y', strtotime("+{$i} day", $date1));
+                $counter++;
+            }
+        }
+        // dd($timeMachineData);
+
         // Make API call for each??
+        foreach ($timeMachineData as $data) 
+        {
+            echo $data['timestamp'];
+            $forecast = $this->getWeather($latitude, $longitude, $data['timestamp']);
+            $counter++;
+            //Add fields to timeMachineData
+        }
+        // $forecast = $this->getWeather($latitude, $longitude);
+        // dd($forecast);
         // Send back data with date and weather for each day??
-        return view("timeMachine");
     }
 
 
@@ -76,9 +110,16 @@ class Controller extends BaseController
 
 
 
-    public function getWeather($latitude, $longitude)
+    public function getWeather($latitude, $longitude, $timestamp = null)
     {
-    	$api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude";
+        if(!$timestamp)
+        {
+    	   $api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude";
+        }
+        else
+        {
+            $api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude, $timestamp";
+        }
 
     	$forecast = json_decode(file_get_contents($api));
 
