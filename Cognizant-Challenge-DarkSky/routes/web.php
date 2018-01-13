@@ -16,3 +16,6 @@ Route::get('/', function () {
 });
 
 Route::get('/home/{place}', ['as'=>'home', 'uses'=>"Controller@index"]);
+
+
+Route::get('/time-machine', ['as'=>"timeMachine", 'uses'=>"Controller@timeMachine"]);

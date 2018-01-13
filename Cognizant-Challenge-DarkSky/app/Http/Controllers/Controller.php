@@ -57,6 +57,25 @@ class Controller extends BaseController
             "place"=>$place]);
     }
 
+
+    public function timeMachine()
+    {
+        //how to get those dates here??
+        // Calculated date range.
+        // Make API call for each??
+        // Send back data with date and weather for each day??
+        return view("timeMachine");
+    }
+
+
+
+
+
+
+
+
+
+
     public function getWeather($latitude, $longitude)
     {
     	$api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude";

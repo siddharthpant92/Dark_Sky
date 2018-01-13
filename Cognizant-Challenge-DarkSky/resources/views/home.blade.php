@@ -78,7 +78,7 @@
 			</div>
 			<br><br>
 	        <h2 class="subheading">
-	        	<span>Think the weather changes that quickly and want to <a class="{!!$type!!}"><u>check again?</u></a></span>
+	        	<span>Take me to the <a class="{!!$type!!}" href="{{route('timeMachine')}}"><u>extra credit!</u></a></span>
 	        </h2>
 
 			<div class="content">				
