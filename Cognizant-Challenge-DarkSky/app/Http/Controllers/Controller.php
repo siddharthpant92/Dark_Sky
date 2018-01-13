@@ -71,7 +71,7 @@ class Controller extends BaseController
         
         if(empty($date1) and empty($date2))
         {
-            return view("timeMachine");
+            $timeMachineData = null;
         }
         // Calculated date range.
         else
@@ -81,24 +81,45 @@ class Controller extends BaseController
             for ($i = 0; $i <= $numDays; $i++) 
             {
                 // echo date('d M Y', strtotime("+{$i} day", $date1)) . '<br />';
-                $timeMachineData[$counter]['timestamp'] = $date1;
-                $timeMachineData[$counter]['date'] = date('d M Y', strtotime("+{$i} day", $date1));
+                $date = date('d M Y', strtotime("+{$i} day", $date1));
+                $timeMachineData[$counter]['timestamp'] = strtotime($date);
+                $timeMachineData[$counter]['date'] = $date;
                 $counter++;
             }
-        }
-        // dd($timeMachineData);
 
-        // Make API call for each??
-        foreach ($timeMachineData as $data) 
-        {
-            echo $data['timestamp'];
-            $forecast = $this->getWeather($latitude, $longitude, $data['timestamp']);
-            $counter++;
-            //Add fields to timeMachineData
+            // dd($timeMachineData);
+
+            // Make API call for each??
+            $counter = 0;
+            foreach ($timeMachineData as $data) 
+            {
+                // echo $data['timestamp'];
+                $forecast = $this->getWeather($latitude, $longitude, $data['timestamp']);
+                $timeMachineData[$counter]['summary'] = $forecast->daily->data[0]->summary;
+                
+                list($icon_type, $type) = $this->getIconType($forecast->daily->data[0]->icon);
+                $timeMachineData[$counter]['icon'] = $forecast->daily->data[0]->icon;
+                $timeMachineData[$counter]['icon_type'] = $icon_type;
+                $timeMachineData[$counter]['type'] = $type;
+                $timeMachineData[$counter]['temperatureHigh'] = $forecast->daily->data[0]->temperatureHigh;
+                $timeMachineData[$counter]['temperatureHighCelsius'] = round(($forecast->daily->data[0]->temperatureHigh-32)*5/9);
+                $timeMachineData[$counter]['temperatureLow'] = $forecast->daily->data[0]->temperatureLow;
+                $timeMachineData[$counter]['temperatureLowCelsius'] = round(($forecast->daily->data[0]->temperatureLow-32)*5/9);
+                $timeMachineData[$counter]['humidity'] = $forecast->daily->data[0]->humidity;
+                $timeMachineData[$counter]['windSpeed'] = $forecast->daily->data[0]->windSpeed;
+                $counter++;
+                // dd($data);
+                //Add fields to timeMachineData
+            }
+
+            // dd($timeMachineData);
+
         }
-        // $forecast = $this->getWeather($latitude, $longitude);
-        // dd($forecast);
-        // Send back data with date and weather for each day??
+        
+        return view("timeMachine", 
+            [
+                "timeMachineData"=>$timeMachineData
+            ]);
     }
 
 
@@ -164,7 +185,7 @@ class Controller extends BaseController
                 elseif (strpos($icon, 'wind') !== false) 
                 {
                     $icon_type = "wi wi-cloudy-windy";
-                    $type = "night-clear";       
+                    $type = "cloud";       
                 }
                 else
                 {
@@ -222,7 +243,7 @@ class Controller extends BaseController
     }
 
 
-    public function getDailyData($data, $place)
+    public function getDailyData($data, $place = null)
     {
         // dd($data);
         $count = 0;

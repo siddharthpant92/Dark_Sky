@@ -20,23 +20,41 @@
 
     </head>
     <body id="app">
+    	
     	<div class="content">
-    		<div class="row">
-    			<div class="col-sm-4 col-sm-offset-4">
-	    			<div class="col-sm-6">
-	    				<input type="text" id="datepicker1" v-model="date1" placeholder="Select start date">
-	    			</div>
-	    			
-	    			<div class="col-sm-6">
-	    				<input type="text" id="datepicker2" v-model="date2" placeholder="Select end date">
-	    			</div>
-	    			<a @click="getDates" :href="url">Get dates</a>
-	    		</div>
-    		</div>
-    		<div class="row">
-	    		<template v-for="date in dateRange" track-by="$index">
-	    			<p>@{{date}}</p>
-	    		</template>
+    		<div class="container">
+				<div class="col-sm-4 col-sm-offset-2">
+    				<input type="text" class="subheading btn" id="datepicker1" v-model="date1" placeholder="Select start date">
+    			</div>
+    			
+    			<div class="col-sm-4">
+    				<input type="text" class="subheading btn" id="datepicker2" v-model="date2" placeholder="Select end date">
+    			</div>
+				<a :href="url" @click="show = true" class="subheading btn">Get dates</a>
+				<div v-if="!d1Selected" class="small-text">
+					Start by selecting the start date!
+				</div>
+				<div v-if="!d2Selected" class="small-text">
+					Don't forget to select the end date!
+				</div>
+				<div v-if="show" class="small-text">
+					Hang on a bit! It takes time to predict the weather!
+				</div>
+			</div>
+    		<div class="container col-sm-offset-1">
+				<div v-for="data in timeMachineData" class="border-double card col-sm-3 @{{data.type}} @{{data.type}}-bg">
+					<p>@{{data.date}}</p>
+					<!-- <span>@{{data.icon}}</span> -->
+					<i class="@{{data.icon_type}}"></i>
+					<br><br>
+	    			<span> @{{data.summary}}</span>
+	    			<br><br>
+	    			<i class="wi wi-thermometer"> @{{data.temperatureLow}}&deg;F - @{{data.temperatureHigh}}&deg;F</i>
+	    			<br><br>
+	    			<i class="wi wi-humidity"> @{{data.humidity}}</i>
+	    			<br><br>
+	    			<i class="wi wi-strong-wind"> @{{data.windSpeed}}</i>
+    			</div>		
 	    	</div>
     	</div>
     </body>
@@ -51,45 +69,38 @@
 		el: "#app",
 		data:
 		{
+			show: false,
+			d1Selected: false,
+			d2Selected: false,
 			date1: '',
 			date2: '',
 			dateRange: [],
-			url: ''
+			url: '',
+			timeMachineData: @json($timeMachineData),
+			celsius: false
 		},
 		watch:
 		{
+			date1: function()
+			{
+				this.d1Selected = true;
+			},
 			date2: function()
 			{
+				this.d2Selected = true;
 				var d1 = new Date(this.date1).getTime()/1000;
 				var d2 = new Date(this.date2).getTime()/1000;
-				this.url =  "http://localhost:8000/time-machine/"+d1+"-"+d2;
-			}
-		},
-		methods:
-		{
-			getDates: function()
-			{
-				//Emptying it so it can calculate from fresh again. Otherwise new dates might get appended
-				this.dateRange = [] ;
-				var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
-				];
-				var timestamp1 = new Date(this.date1)
-				var timestamp2 = new Date(this.date2)
-				
-				var date = timestamp1;
-				
-				while(date <=  timestamp2)
+				if(!this.d1Selected || !this.d2Selected || this.date2<this.date1)
 				{
-					var year = date.getFullYear();
-					var month = monthNames[date.getMonth()];
-					var day = date.getDate();
-					var formattedDate = day+' '+month+' '+year;
-					this.dateRange.push(formattedDate);
-					date.setDate(date.getDate() + 1);
-
+					this.date1 = null;
+					this.date2 = null;
+					window.alert("Select both dates and the end date can't be before the start date!");
 				}
-			},
-			
+				else
+				{
+					this.url =  "http://localhost:8000/time-machine/"+d1+"/"+d2;
+				}
+			}
 		}
 	});
 
