@@ -87,13 +87,11 @@ class Controller extends BaseController
                 $counter++;
             }
 
-            // dd($timeMachineData);
-
-            // Make API call for each??
+           
+            // Make API call for each timestamp and the data to a new object
             $counter = 0;
             foreach ($timeMachineData as $data) 
             {
-                // echo $data['timestamp'];
                 $forecast = $this->getWeather($latitude, $longitude, $data['timestamp']);
                 $timeMachineData[$counter]['summary'] = $forecast->daily->data[0]->summary;
                 
@@ -108,12 +106,7 @@ class Controller extends BaseController
                 $timeMachineData[$counter]['humidity'] = $forecast->daily->data[0]->humidity;
                 $timeMachineData[$counter]['windSpeed'] = $forecast->daily->data[0]->windSpeed;
                 $counter++;
-                // dd($data);
-                //Add fields to timeMachineData
             }
-
-            // dd($timeMachineData);
-
         }
         
         return view("timeMachine", 
@@ -201,7 +194,6 @@ class Controller extends BaseController
 
     public function getHourlyData($data, $place)
     {
-    	// dd($data);
     	$count = 0;
     	foreach ($data as $hour) 
     	{
@@ -238,20 +230,20 @@ class Controller extends BaseController
     		$hourObject["$count"]['icon'] = $icon_type;
     		$count ++;
     	}
+
+        //Since the date is being displayed only at 12 hour intervals, copying those data new points into a separate object
         $hourObject12Hour[0]=$hourObject['12'];
         $hourObject12Hour[1]=$hourObject['24'];
         $hourObject12Hour[2]=$hourObject['36'];
         $hourObject12Hour[3]=$hourObject['48'];
-        // dd($hourObject12Hour);
-    	// dd($hourObject);
-    	// return $hourObject;
+        
+        // return $hourObject;
         return $hourObject12Hour;
     }
 
 
     public function getDailyData($data, $place = null)
     {
-        // dd($data);
         $count = 0;
         foreach ($data as $day) 
         {
@@ -293,7 +285,7 @@ class Controller extends BaseController
             $dayObject["$count"]['icon'] = $icon_type;
             $count ++;
         }
-        // dd($dayObject);
+        
         return $dayObject;
     }
 }

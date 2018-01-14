@@ -187,23 +187,11 @@
 
     			// Convert timestamp to milliseconds
 				var date = new Date(time*1000);
-
-				// Month
- 				var month = monthNames[date.getMonth()];
-
-				// Day
+				var month = monthNames[date.getMonth()];
 				var day = date.getDate();
-
-				// Hours
 				var hours = date.getHours();
-
-				// Minutes
 				var minutes = "0" + date.getMinutes();
-
-				// Seconds
 				var seconds = "0" + date.getSeconds();
-
-				// Display date time in MM-dd-yyyy h:m:s format
 				var formattedTime = day+' '+month+'   '+hours + ':' + minutes.substr(-2);
 
 				return formattedTime;
