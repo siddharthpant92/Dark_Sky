@@ -238,8 +238,14 @@ class Controller extends BaseController
     		$hourObject["$count"]['icon'] = $icon_type;
     		$count ++;
     	}
+        $hourObject12Hour[0]=$hourObject['12'];
+        $hourObject12Hour[1]=$hourObject['24'];
+        $hourObject12Hour[2]=$hourObject['36'];
+        $hourObject12Hour[3]=$hourObject['48'];
+        // dd($hourObject12Hour);
     	// dd($hourObject);
-    	return $hourObject;
+    	// return $hourObject;
+        return $hourObject12Hour;
     }
 
 

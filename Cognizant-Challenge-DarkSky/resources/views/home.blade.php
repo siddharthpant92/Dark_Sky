@@ -81,201 +81,55 @@
 	        	<span>Take me to the <a class="{!!$type!!}" href="{{route('timeMachine')}}"><u>extra credit!</u></a></span>
 	        </h2>
 
-			<div class="content">				
-				<div class="row border-double" v-show="hourly" id="by-hour">
+			<div class="content row" v-show="hourly">							
+				<div class="content" id="by-hour">
 					<div class="subheading">
-						{{$forecast->hourly->summary}}
+						<u>Here's the forecast for the next 48 hours</u>
 					</div>
 					<br>
-					<div class="col-sm-3 card-small">
-						<b>{{$hourly['12']['time']}}</b>
-						<br><br>
-						<i class="{!! $hourly['13']['icon'] !!}"></i>
-						<br>
-						<span>{{$hourly['12']['summary']}}</span>
-						<br>
-						<span v-if="!celsius">{{$hourly['12']['temperature']}}&deg;F</span>
-						<span v-else>{{$hourly['12']['temperatureCelsius']}}&deg;C</span>
-					</div>
-					<div class="col-sm-3 card-small">
-						<b>{{$hourly['24']['time']}}</b>
-						<br><br>
-						<i class="{!! $hourly['25']['icon'] !!}"></i>
-						<br>
-						<span>{{$hourly['24']['summary']}}</span>
-						<br>
-						<span v-if="!celsius">{{$hourly['24']['temperature']}}&deg;F</span>
-						<span v-else>{{$hourly['24']['temperatureCelsius']}}&deg;C</span>
-					</div>
-					<div class="col-sm-3 card-small">
-						<b>{{$hourly['36']['time']}}</b>
-						<br><br>
-						<i class="{!! $hourly['37']['icon'] !!}"></i>
-						<br>
-						<span>{{$hourly['36']['summary']}}</span>
-						<br>
-						<span v-if="!celsius">{{$hourly['36']['temperature']}}&deg;F</span>
-						<span v-else>{{$hourly['36']['temperatureCelsius']}}&deg;C</span>
-					</div>
-					<div class="col-sm-3 card-small">
-						<b>{{$hourly['48']['time']}}</b>
-						<br><br>
-						<i class="{!! $hourly['48']['icon'] !!}"></i>
-						<br>
-						<span>{{$hourly['48']['summary']}}</span>
-						<br>
-						<span v-if="!celsius">{{$hourly['48']['temperature']}}&deg;F</span>
-						<span v-else>{{$hourly['48']['temperatureCelsius']}}&deg;C</span>
-					</div>
+					<div class="subheading">
+						{{$forecast->hourly->summary}}
+					</div>	
+					<!-- <template > -->
+						<div class="card-small col-sm-3 border-double" v-for="hourlyData in hourlyObject">
+							<b>@{{hourlyData.time}}</b>
+							<br><br>
+							<i class="@{{hourlyData.icon}}"></i>
+							<br>
+							<span>@{{hourlyData.summary}}</span>
+							<br>
+							<span v-if="!celsius">@{{hourlyData.temperature}}&deg;F</span>
+							<span v-else>@{{hourlyData.temperatureCelsius}}&deg;C</span>
+						</div>
+					<!-- </template> -->
 				</div>
 			</div>
 			
-			<div class="content">
-				
-				<div class="row border-double" v-show="weekly" id="by-week">
-					<div class="col-sm-3 card">
-						<b>{{ $daily['1']['time'] }}</b>
-						<br><br>
-						<i class="{!! $daily['1']['icon'] !!}"></i>
-						<br>
-						<span>{{$daily['1']['summary']}}</span>
-						<br><br>
-						<i class="wi wi-thermometer">
-							<span v-if="!celsius"> {{$daily['1']['temperatureLow']}}&deg;F to {{$daily['1']['temperatureHigh']}}&deg;F</span>
-							<span v-else> {{$daily['1']['temperatureLowCelsius']}}&deg;C to {{$daily['1']['temperatureHighCelsius']}}&deg;C</span>
-						</i>
-						<br><br>
-						<i class="wi wi-sunrise"> {{$daily['1']['sunrise']}}</i>						
-						<i class="wi wi-sunset"> {{$daily['1']['sunset']}}</i>
-						<br><br>
-						<i class="wi wi-humidity"> {{$daily['1']['humidity']}}</i>
-						<br><br>
-						<i class="wi wi-strong-wind"> {{$daily['1']['windSpeed']}}km/hr</i>
-						<br>
-					</div>
-					<div class="col-sm-3 card">
-						<b>{{ $daily['2']['time'] }}</b>
-						<br><br>
-						<i class="{!! $daily['2']['icon'] !!}"></i>
-						<br>
-						<span>{{$daily['2']['summary']}}</span>
-						<br><br>
-						<i class="wi wi-thermometer">
-							<span v-if="!celsius"> {{$daily['2']['temperatureLow']}}&deg;F to {{$daily['2']['temperatureHigh']}}&deg;F</span>
-							<span v-else> {{$daily['2']['temperatureLowCelsius']}}&deg;C to {{$daily['2']['temperatureHighCelsius']}}&deg;C</span>
-						</i>
-						<br><br>
-						<i class="wi wi-sunrise"> {{$daily['2']['sunrise']}}</i>						
-						<i class="wi wi-sunset"> {{$daily['2']['sunset']}}</i>
-						<br><br>
-						<i class="wi wi-humidity"> {{$daily['2']['humidity']}}</i>
-						<br><br>
-						<i class="wi wi-strong-wind"> {{$daily['2']['windSpeed']}}km/hr</i>
-						<br>
-					</div>
-					<div class="col-sm-3 card">
-						<b>{{ $daily['3']['time'] }}</b>
-						<br><br>
-						<i class="{!! $daily['3']['icon'] !!}"></i>
-						<br>
-						<span>{{$daily['3']['summary']}}</span>
-						<br><br>
-						<i class="wi wi-thermometer">
-							<span v-if="!celsius"> {{$daily['3']['temperatureLow']}}&deg;F to {{$daily['3']['temperatureHigh']}}&deg;F</span>
-							<span v-else> {{$daily['3']['temperatureLowCelsius']}}&deg;C to {{$daily['3']['temperatureHighCelsius']}}&deg;C</span>
-						</i>
-						<br><br>
-						<i class="wi wi-sunrise"> {{$daily['3']['sunrise']}}</i>						
-						<i class="wi wi-sunset"> {{$daily['3']['sunset']}}</i>
-						<br><br>
-						<i class="wi wi-humidity"> {{$daily['3']['humidity']}}</i>
-						<br><br>
-						<i class="wi wi-strong-wind"> {{$daily['3']['windSpeed']}}km/hr</i>
-						<br>
-					</div>
-					<div class="col-sm-3 card">
-						<b>{{ $daily['4']['time'] }}</b>
-						<br><br>
-						<i class="{!! $daily['4']['icon'] !!}"></i>
-						<br>
-						<span>{{$daily['4']['summary']}}</span>
-						<br><br>
-						<i class="wi wi-thermometer">
-							<span v-if="!celsius"> {{$daily['4']['temperatureLow']}}&deg;F to {{$daily['4']['temperatureHigh']}}&deg;F</span>
-							<span v-else> {{$daily['4']['temperatureLowCelsius']}}&deg;C to {{$daily['4']['temperatureHighCelsius']}}&deg;C</span>
-						</i>
-						<br><br>
-						<i class="wi wi-sunrise"> {{$daily['4']['sunrise']}}</i>						
-						<i class="wi wi-sunset"> {{$daily['4']['sunset']}}</i>
-						<br><br>
-						<i class="wi wi-humidity"> {{$daily['4']['humidity']}}</i>
-						<br><br>
-						<i class="wi wi-strong-wind"> {{$daily['4']['windSpeed']}}km/hr</i>
-						<br>
-					</div>
-					<div class="col-sm-3 card">
-						<b>{{ $daily['5']['time'] }}</b>
-						<br><br>
-						<i class="{!! $daily['5']['icon'] !!}"></i>
-						<br>
-						<span>{{$daily['5']['summary']}}</span>
-						<br><br>
-						<i class="wi wi-thermometer">
-							<span v-if="!celsius"> {{$daily['5']['temperatureLow']}}&deg;F to {{$daily['5']['temperatureHigh']}}&deg;F</span>
-							<span v-else> {{$daily['5']['temperatureLowCelsius']}}&deg;C to {{$daily['5']['temperatureHighCelsius']}}&deg;C</span>
-						</i>
-						<br><br>
-						<i class="wi wi-sunrise"> {{$daily['5']['sunrise']}}</i>						
-						<i class="wi wi-sunset"> {{$daily['5']['sunset']}}</i>
-						<br><br>
-						<i class="wi wi-humidity"> {{$daily['5']['humidity']}}</i>
-						<br><br>
-						<i class="wi wi-strong-wind"> {{$daily['5']['windSpeed']}}km/hr</i>
-						<br>
-					</div>
-					<div class="col-sm-3 card">
-						<b>{{ $daily['6']['time'] }}</b>
-						<br><br>
-						<i class="{!! $daily['6']['icon'] !!}"></i>
-						<br>
-						<span>{{$daily['6']['summary']}}</span>
-						<br><br>
-						<i class="wi wi-thermometer">
-							<span v-if="!celsius"> {{$daily['6']['temperatureLow']}}&deg;F to {{$daily['6']['temperatureHigh']}}&deg;F</span>
-							<span v-else> {{$daily['6']['temperatureLowCelsius']}}&deg;C to {{$daily['6']['temperatureHighCelsius']}}&deg;C</span>
-						</i>
-						<br><br>
-						<i class="wi wi-sunrise"> {{$daily['6']['sunrise']}}</i>						
-						<i class="wi wi-sunset"> {{$daily['6']['sunset']}}</i>
-						<br><br>
-						<i class="wi wi-humidity"> {{$daily['6']['humidity']}}</i>
-						<br><br>
-						<i class="wi wi-strong-wind"> {{$daily['6']['windSpeed']}}km/hr</i>
-						<br>
-					</div>
-					<div class="col-sm-3 card">
-						<b>{{ $daily['7']['time'] }}</b>
-						<br><br>
-						<i class="{!! $daily['7']['icon'] !!}"></i>
-						<br>
-						<span>{{$daily['7']['summary']}}</span>
-						<br><br>
-						<i class="wi wi-thermometer">
-							<span v-if="!celsius"> {{$daily['7']['temperatureLow']}}&deg;F to {{$daily['7']['temperatureHigh']}}&deg;F</span>
-							<span v-else> {{$daily['7']['temperatureLowCelsius']}}&deg;C to {{$daily['7']['temperatureHighCelsius']}}&deg;C</span>
-						</i>
-						<br><br>
-						<i class="wi wi-sunrise"> {{$daily['7']['sunrise']}}</i>						
-						<i class="wi wi-sunset"> {{$daily['7']['sunset']}}</i>
-						<br><br>
-						<i class="wi wi-humidity"> {{$daily['7']['humidity']}}</i>
-						<br><br>
-						<i class="wi wi-strong-wind"> {{$daily['7']['windSpeed']}}km/hr</i>
-						<br>
-					</div>
+			<div class="container row" v-show="weekly" >
+				<div class="subheading">
+					<u>Here's the forecast for the next week</u>
+				</div>
+				<div class="content border-double card col-sm-3 col-sm-offset-1" id="by-week" v-for="dailyData in dailyObject">
+					<b>@{{dailyData.time}}</b>
+					<br><br>
+					<i class="@{{dailyData.icon}}"></i>
+					<br>
+					<span>@{{dailyData.summary}}</span>
+					<br><br>
+					<i class="wi wi-thermometer">
+						<span v-if="!celsius"> @{{dailyData.temperatureLow}}&deg;F to @{{dailyData.temperatureHigh}}&deg;F</span>
+						<span v-else> @{{dailyData.temperatureLowCelsius}}&deg;C to @{{dailyData.temperatureHighCelsius}}&deg;C</span>
+					</i>
+					<br><br>
+					<i class="wi wi-sunrise"> @{{dailyData.sunrise}}</i>						
+					<i class="wi wi-sunset"> @{{dailyData.sunset}}</i>
+					<br><br>
+					<i class="wi wi-humidity"> @{{dailyData.humidity}}</i>
+					<br><br>
+					<i class="wi wi-strong-wind"> @{{dailyData.windSpeed}}km/hr</i>
+					<br>
 				</div>
 			</div>
-			
         </div>
     </body>
 </html>
@@ -294,7 +148,9 @@
     		allOffices: false,
     		farenTemp: {{$forecast->currently->temperature}},
     		farenFeelsTemp: Math.round({{$forecast->currently->apparentTemperature}}),
-    		place: "{{$place}}"
+    		place: "{{$place}}",
+    		dailyObject: @json($daily),
+    		hourlyObject: @json($hourly)
     	},
     	computed:
     	{
