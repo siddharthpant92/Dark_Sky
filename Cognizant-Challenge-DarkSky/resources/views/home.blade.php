@@ -19,28 +19,22 @@
 
     </head>
     <body  id="app" class="{!!$type!!}-bg {!!$type!!}">
-    	<div class="header">
+    	<div class="header row">
 	    	<div class="row {!!$type!!}-btn">
-	    		<div class="col-sm-3">
-	    			<a href="{{url('/')}}" class="small-text {!!$type!!}">Main page</a>
-	    		</div>
-	    		<div class="col-sm-3">
-	    			<a v-if="!celsius" href="#" @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;C</a>
-					<a v-else href="#" @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;F</a>	
-	    		</div>
-	    		<div class="col-sm-3">
-	    			<a v-if="!allOffices" href="#" class="small-text {!!$type!!}" @click="allOffices = !allOffices">Show me the details for a different office</a>
-	    			<a v-else href="#" class="small-text {!!$type!!}" @click="allOffices = !allOffices">I don't care about any other office</a>
-	    		</div>
-	    		<div class="col-sm-3">
-	    			<a class="small-text {!!$type!!}" href="#" @click="hourly = !hourly">For today and tomorrow</a>
+    			<a href="{{url('/')}}" class="content {!!$type!!}">Main page</a>
+    			<a v-if="!celsius" href="#" @click="celsius = !celsius" class="content {!!$type!!}">Convert to &deg;C</a>
+				<a v-else href="#" @click="celsius = !celsius" class="content {!!$type!!}">Convert to &deg;F</a>	
+    			<a v-if="!allOffices" href="#" class="content {!!$type!!}" @click="allOffices = !allOffices">Show me the details for a different office</a>
+    			<a v-else href="#" class="content {!!$type!!}" @click="allOffices = !allOffices">I don't care about any other office</a>
+    			<span class="content">
+	    			<a class="{!!$type!!}" href="#" @click="hourly = !hourly">For today and tomorrow</a>
 	    			 | 
-	    			<a class="small-text {!!$type!!}" href="#" @click="weekly = !weekly">For the next week</a>
-	    		</div>
+	    			<a class="{!!$type!!}" href="#" @click="weekly = !weekly">For the next week</a>
+	    		</span>
 	        </div>
 		</div>
-		<br><br><br><br>
-        <div class="content" v-if="allOffices">
+		<br><br><br><br><br>
+        <div class="content row" v-if="allOffices">
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Boulder'])}}">Boulder Office</a>
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Bangalore'])}}">Bangalore Office</a>
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Melbourne'])}}">Melbourne Office</a>

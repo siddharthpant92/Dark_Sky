@@ -21,16 +21,10 @@
     </head>
     <body id="app" :class="weatherClassBackground">
     	<div class="header" :class="weatherClassBtn">
-    		<div class="col-sm-4">
-    			<a href="{{url('/')}}" class="small-text" :class="weatherClass">Main page</a>
-    		</div>
-    		<div class="col-sm-4">
-    			<a href="{{route('home', ['place'=>'Boulder'])}}" class="small-text" :class="weatherClass">Back to the weather forecast page</a>
-    		</div>
-    		<div class="col-sm-4">
-    			<a href="#" v-if="!celsius" @click="celsius = !celsius" class="small-text" :class="weatherClass">Convert to &deg;C</a>
-				<a href="#" v-else @click="celsius = !celsius" class="small-text" :class="weatherClass">Convert to &deg;F</a>
-    		</div>
+			<a href="{{url('/')}}" class="content" :class="weatherClass">Main page</a>
+			<a href="{{route('home', ['place'=>'Boulder'])}}" class="content" :class="weatherClass">Back to the weather forecast page</a>
+			<a href="#" v-if="!celsius" @click="celsius = !celsius" class="content" :class="weatherClass">Convert to &deg;C</a>
+			<a href="#" v-else @click="celsius = !celsius" class="content" :class="weatherClass">Convert to &deg;F</a>
         </div>
         <br>
         <br>
@@ -58,6 +52,9 @@
     		<div class="container">
     			<div class="subheading" :class="weatherClass">
     				When the dates and the weather show up, move the mouse over the cards to change the theme based on the forecast of that day!!
+    				<br>
+    				<br>
+    				Boulder
     			</div>
 				<div v-for="data in timeMachineData" class="border-double card col-sm-3 @{{data.type}} @{{data.type}}-bg" v-on:mouseover="changeTheme(data.type)">
 					<p>@{{data.date}}</p>
