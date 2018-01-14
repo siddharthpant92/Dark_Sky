@@ -22,25 +22,29 @@
     <body id="app" :class="weatherClassBackground">
     	<div class="content">
     		<div class="container">
-				<div class="col-sm-4 col-sm-offset-2">
-    				<input type="text" class="subheading btn" id="datepicker1" v-model="date1" placeholder="Select start date" :class="weatherClassBtn">
-    			</div>
-    			
-    			<div class="col-sm-4">
-    				<input type="text" class="subheading btn" id="datepicker2" v-model="date2" placeholder="Select end date" :class="weatherClassBtn">
-    			</div>
-				<a :href="url" @click="show = true" class="subheading btn" :class="weatherClassBtn">Get dates</a>
-				<div v-if="!d1Selected" class="small-text" :class="weatherClassBtn">
-					Start by selecting the start date!
-				</div>
-				<div v-if="!d2Selected" class="small-text" :class="weatherClassBtn">
-					Don't forget to select the end date!
-				</div>
-				<div v-if="show" class="small-text" :class="weatherClassBtn">
-					Hang on a bit! It takes time to predict the weather!
+    			<div class="row">
+					<div class="col-sm-4 col-sm-offset-2">
+	    				<input type="text" class="subheading btn" id="datepicker1" v-model="date1" :class="weatherClassBtn">
+	    			</div>
+	    			
+	    			<div class="col-sm-4">
+	    				<input type="text" class="subheading btn" id="datepicker2" v-model="date2" :class="weatherClassBtn">
+	    			</div>
+	    		</div>
+	    		<div class="row">
+					<a :href="url" @click="show = true" class="subheading btn" :class="weatherClass">Get the weather for this date range</a>
+					<div v-if="!d1Selected">
+						<span class="small-text" :class="weatherClass">Start by selecting the start date!</span>
+					</div>
+					<div v-if="!d2Selected">
+						<span class="small-text" :class="weatherClass">Don't forget to select the end date!</span
+					</div>
+					<div v-if="show">
+						<span class="small-text" :class="weatherClass">Hang on a bit! It takes time to predict the weather!</span>
+					</div>
 				</div>
 			</div>
-    		<div class="container col-sm-offset-1">
+    		<div class="container">
 				<div v-for="data in timeMachineData" class="border-double card col-sm-3 @{{data.type}} @{{data.type}}-bg" v-on:mouseover="test(data.type)">
 					<p>@{{data.date}}</p>
 					<!-- <span>@{{data.icon}}</span> -->
@@ -71,14 +75,15 @@
 			show: false,
 			d1Selected: false,
 			d2Selected: false,
-			date1: '',
-			date2: '',
+			date1: 'Select the start date',
+			date2: 'Select the end date',
 			dateRange: [],
 			url: '',
 			timeMachineData: @json($timeMachineData),
 			celsius: false,
-			weatherClassBackground: '',
-			weatherClassBtn: ''
+			weatherClassBackground: 'day-sunny-bg',
+			weatherClass: 'day-sunny',
+			weatherClassBtn: 'day-sunny-btn'
 		},
 		watch:
 		{
@@ -108,7 +113,8 @@
 			test: function(type)
 			{
 				this.weatherClassBackground = type+"-bg";
-				this.weatherClassBtn = type+"-btn"
+				this.weatherClass = type;
+				this.weatherClassBtn = type+"-btn";
 			}
 		}
 	});
