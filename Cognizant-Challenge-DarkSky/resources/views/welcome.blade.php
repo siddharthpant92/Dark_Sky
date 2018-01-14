@@ -14,7 +14,7 @@
        <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     </head>
     <body>
-        <div class="flex-center position-ref full-height intro-body">
+        <div class="intro-body">
             <div class="content">
                 <div class="intro">
                     Using the Dark Sky API (https://darksky.net/dev/), create a basic app that changes color scheme
@@ -31,7 +31,3 @@
         </div>
     </body>
 </html>
-
-<script type="text/javascript">
-    
-</script>
