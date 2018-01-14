@@ -19,18 +19,20 @@
 
     </head>
     <body  id="app" class="{!!$type!!}-bg {!!$type!!}">
-    	<div class="header row">
-	    	<div class="row {!!$type!!}-btn">
-    			<a href="{{url('/')}}" class="content {!!$type!!}">Main page</a>
-    			<a v-if="!celsius" href="#" @click="celsius = !celsius" class="content {!!$type!!}">Convert to &deg;C</a>
-				<a v-else href="#" @click="celsius = !celsius" class="content {!!$type!!}">Convert to &deg;F</a>	
-    			<a v-if="!allOffices" href="#" class="content {!!$type!!}" @click="allOffices = !allOffices">Show me the details for a different office</a>
-    			<a v-else href="#" class="content {!!$type!!}" @click="allOffices = !allOffices">I don't care about any other office</a>
-    			<span class="content">
-	    			<a class="{!!$type!!}" href="#" @click="hourly = !hourly">For today and tomorrow</a>
-	    			 | 
-	    			<a class="{!!$type!!}" href="#" @click="weekly = !weekly">For the next week</a>
-	    		</span>
+    	<div class="header">
+	    	<div class="row {!!$type!!}-btn col">
+	    		<div class="col-sm-offset-1">
+	    			<a href="{{url('/')}}" class="content {!!$type!!}">Main page</a>
+	    			<a v-if="!celsius" href="#" @click="celsius = !celsius" class="content {!!$type!!}">Convert to &deg;C</a>
+					<a v-else href="#" @click="celsius = !celsius" class="content {!!$type!!}">Convert to &deg;F</a>	
+	    			<a v-if="!allOffices" href="#" class="content {!!$type!!}" @click="allOffices = !allOffices">Show me the details for a different office</a>
+	    			<a v-else href="#" class="content {!!$type!!}" @click="allOffices = !allOffices">I don't care about any other office</a>
+	    			<span class="content">
+		    			<a class="{!!$type!!}" href="#" @click="hourly = !hourly">For today and tomorrow</a>
+		    			 | 
+		    			<a class="{!!$type!!}" href="#" @click="weekly = !weekly">For the next week</a>
+		    		</span>
+		    	</div>
 	        </div>
 		</div>
 		<br><br><br><br><br>
@@ -118,7 +120,6 @@
 					<i class="wi wi-humidity"></i> @{{dailyData.humidity}}
 					<br><br>
 					<i class="wi wi-strong-wind"></i> @{{dailyData.windSpeed}}km/hr
-					<br>
 				</div>
 			</div>
         </div>
