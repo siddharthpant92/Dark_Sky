@@ -42,13 +42,15 @@
 		<br><br><br><br>
         <div class="content" v-if="allOffices">
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Boulder'])}}">Boulder Office</a>
-			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'India'])}}">Bangalore Office</a>
-			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Australia'])}}">Melbourne Office</a>
-			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'UK'])}}">London Office</a>
+			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Bangalore'])}}">Bangalore Office</a>
+			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Melbourne'])}}">Melbourne Office</a>
+			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'London'])}}">London Office</a>
 		</div>
         <div class="container {!!$type!!}" style="padding-top: 50px;">
         	<div class="row content round">
     			<div>    				
+    				<span class="heading"> {{$place}}</span>
+    				<br>
     				<span class="heading"> @{{time}}</span>
     				<br>
     				<div class="subheading">
@@ -170,15 +172,15 @@
 				];
 
 				//Converting MST to correct times
-    			if(this.place==="India")
+    			if(this.place==="Bangalore")
     			{
     				time += 12*60*60 + 30*60;
     			}
-    			else if(this.place==="Australia")
+    			else if(this.place==="Melbourne")
     			{
     				time += 18*60*60;
     			}
-    			else if(this.place==="UK")
+    			else if(this.place==="London")
     			{
     				time += 7*60*60;
     			}

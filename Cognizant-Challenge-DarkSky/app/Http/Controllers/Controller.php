@@ -24,12 +24,12 @@ class Controller extends BaseController
         	$latitude = 40.016457;
         	$longitude = -105.285884;
         }
-        elseif ($place === "India")
+        elseif ($place === "Bangalore")
         {
             $latitude = 12.981000;
             $longitude = 77.66328;
         }
-        elseif($place === "Australia")
+        elseif($place === "Melbourne")
         {
             $latitude = -37.818721;
             $longitude = 144.959246;
@@ -212,12 +212,12 @@ class Controller extends BaseController
                 //Subtracting 7 hours
                 $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time - 60*60*7);
             }
-            elseif ($place === "India")
+            elseif ($place === "Bangalore")
             {
                 //Adding 5hr 30min
                 $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time + 60*60*5 + 60*30);
             }
-            elseif($place === "Australia")
+            elseif($place === "Melbourne")
             {
                //Adding 11hr
                 $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time + 60*60*11);
@@ -261,12 +261,12 @@ class Controller extends BaseController
                 //Subtracting 7 hours
                 $dayObject["$count"]['time'] = date("D, d M", $day->time - 60*60*7);
             }
-            elseif ($place === "India")
+            elseif ($place === "Bangalore")
             {
                 //Adding 5hr 30min
                 $dayObject["$count"]['time'] = date("D, d M", $day->time - 60*60*5 + 60*30);
             }
-            elseif($place === "Australia")
+            elseif($place === "Melbourne")
             {
                 //Adding 11hr
                 $dayObject["$count"]['time'] = date("D, d M", $day->time + 60*60*11);
