@@ -129,7 +129,8 @@
 {
 	color: white;
 	background-color: #191970;
-	opacity: 0.8;
+    font-weight: bold;
+    font-family: 'Lato', sans-serif;
 }
 .night-clear-bg
 {
@@ -149,6 +150,7 @@
 	background-color: #09B7F5;
     color: black;
     font-weight: bold;
+    font-family: 'Lato', sans-serif;
 }
 .day-sunny-bg
 {
@@ -168,6 +170,8 @@
 {
 	color: 	black;
 	background-color: #696969;
+    font-weight: bold;
+    font-family: 'Lato', sans-serif;
 }
 .cloud-bg
 {
@@ -187,6 +191,8 @@
 {
 	color: white;
 	background-color: #2F4F4F;
+    font-weight: bold;
+    font-family: 'Lato', sans-serif;
 }
 .rain-bg
 {
@@ -207,7 +213,8 @@
 {
 	color: #00008B;
 	background-color: #87CEFA;
-	/*opacity: 0.8;*/
+    font-weight: bold;
+    font-family: 'Lato', sans-serif;
 }
 .snow-bg
 {
