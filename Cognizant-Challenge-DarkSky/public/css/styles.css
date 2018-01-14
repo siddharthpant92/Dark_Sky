@@ -133,6 +133,7 @@
 }
 .night-clear
 {
+	font-family: 'Lato', sans-serif;
 	color: white;
 	font-weight: bold;
 }
@@ -153,6 +154,7 @@
 
 .day-sunny
 {
+	font-family: 'Lato', sans-serif;
 	color: black;
 	font-weight: bold;
 }
@@ -172,6 +174,7 @@
 
 .cloud
 {
+	font-family: 'Lato', sans-serif;
 	color: black;
 	font-weight: bold;
 }
@@ -191,6 +194,7 @@
 
 .rain
 {
+	font-family: 'Lato', sans-serif;
 	color: white;
 	font-weight: bold;
 }
@@ -211,6 +215,7 @@
 
 .snow
 {
+	font-family: 'Lato', sans-serif;
 	color: 	#00008B;
 	font-weight: bold;
 }

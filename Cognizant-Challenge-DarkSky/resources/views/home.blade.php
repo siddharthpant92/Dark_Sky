@@ -89,7 +89,7 @@
 					<br>
 					<div class="col-sm-3 card-small">
 						<b>{{$hourly['12']['time']}}</b>
-						<br>
+						<br><br>
 						<i class="{!! $hourly['13']['icon'] !!}"></i>
 						<br>
 						<span>{{$hourly['12']['summary']}}</span>
@@ -99,7 +99,7 @@
 					</div>
 					<div class="col-sm-3 card-small">
 						<b>{{$hourly['24']['time']}}</b>
-						<br>
+						<br><br>
 						<i class="{!! $hourly['25']['icon'] !!}"></i>
 						<br>
 						<span>{{$hourly['24']['summary']}}</span>
@@ -109,7 +109,7 @@
 					</div>
 					<div class="col-sm-3 card-small">
 						<b>{{$hourly['36']['time']}}</b>
-						<br>
+						<br><br>
 						<i class="{!! $hourly['37']['icon'] !!}"></i>
 						<br>
 						<span>{{$hourly['36']['summary']}}</span>
@@ -119,7 +119,7 @@
 					</div>
 					<div class="col-sm-3 card-small">
 						<b>{{$hourly['48']['time']}}</b>
-						<br>
+						<br><br>
 						<i class="{!! $hourly['48']['icon'] !!}"></i>
 						<br>
 						<span>{{$hourly['48']['summary']}}</span>
@@ -135,7 +135,7 @@
 				<div class="row border-double" v-show="weekly" id="by-week">
 					<div class="col-sm-3 card">
 						<b>{{ $daily['1']['time'] }}</b>
-						<br>
+						<br><br>
 						<i class="{!! $daily['1']['icon'] !!}"></i>
 						<br>
 						<span>{{$daily['1']['summary']}}</span>
@@ -155,7 +155,7 @@
 					</div>
 					<div class="col-sm-3 card">
 						<b>{{ $daily['2']['time'] }}</b>
-						<br>
+						<br><br>
 						<i class="{!! $daily['2']['icon'] !!}"></i>
 						<br>
 						<span>{{$daily['2']['summary']}}</span>
@@ -175,7 +175,7 @@
 					</div>
 					<div class="col-sm-3 card">
 						<b>{{ $daily['3']['time'] }}</b>
-						<br>
+						<br><br>
 						<i class="{!! $daily['3']['icon'] !!}"></i>
 						<br>
 						<span>{{$daily['3']['summary']}}</span>
@@ -195,7 +195,7 @@
 					</div>
 					<div class="col-sm-3 card">
 						<b>{{ $daily['4']['time'] }}</b>
-						<br>
+						<br><br>
 						<i class="{!! $daily['4']['icon'] !!}"></i>
 						<br>
 						<span>{{$daily['4']['summary']}}</span>
@@ -215,7 +215,7 @@
 					</div>
 					<div class="col-sm-3 card">
 						<b>{{ $daily['5']['time'] }}</b>
-						<br>
+						<br><br>
 						<i class="{!! $daily['5']['icon'] !!}"></i>
 						<br>
 						<span>{{$daily['5']['summary']}}</span>
@@ -235,7 +235,7 @@
 					</div>
 					<div class="col-sm-3 card">
 						<b>{{ $daily['6']['time'] }}</b>
-						<br>
+						<br><br>
 						<i class="{!! $daily['6']['icon'] !!}"></i>
 						<br>
 						<span>{{$daily['6']['summary']}}</span>
@@ -255,7 +255,7 @@
 					</div>
 					<div class="col-sm-3 card">
 						<b>{{ $daily['7']['time'] }}</b>
-						<br>
+						<br><br>
 						<i class="{!! $daily['7']['icon'] !!}"></i>
 						<br>
 						<span>{{$daily['7']['summary']}}</span>
