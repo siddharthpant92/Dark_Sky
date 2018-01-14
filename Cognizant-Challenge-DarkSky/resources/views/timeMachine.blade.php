@@ -106,13 +106,23 @@
 			date1: function()
 			{
 				this.d1Selected = true;
+				if(this.date1 === '')
+				{
+					window.alert('Please enter your start date');
+					this.d1Selected = false;
+				}
 			},
 			date2: function()
 			{
 				this.d2Selected = true;
 				var d1 = new Date(this.date1).getTime()/1000;
 				var d2 = new Date(this.date2).getTime()/1000;
-				if(!this.d1Selected || !this.d2Selected || this.date2<this.date1)
+				if(this.date2 === '')
+				{
+					window.alert('Please enter your end date');
+					this.d2Selected = false;
+				}
+				else if(this.date2<this.date1)
 				{
 					window.alert("Select both dates and the end date can't be before the start date!");
 					this.date1 = 'Select the start date';
