@@ -25,17 +25,17 @@
 	    			<a href="{{url('/')}}" class="small-text {!!$type!!}">Main page</a>
 	    		</div>
 	    		<div class="col-sm-3">
-	    			<a v-if="!celsius" @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;C</a>
-					<a v-else @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;F</a>	
+	    			<a v-if="!celsius" href="#" @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;C</a>
+					<a v-else href="#" @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;F</a>	
 	    		</div>
 	    		<div class="col-sm-3">
-	    			<a v-if="!allOffices" class="small-text {!!$type!!}" @click="allOffices = !allOffices">Show me the details for a different office</a>
-	    			<a v-else class="small-text {!!$type!!}" @click="allOffices = !allOffices">I don't care about any other office</a>
+	    			<a v-if="!allOffices" href="#" class="small-text {!!$type!!}" @click="allOffices = !allOffices">Show me the details for a different office</a>
+	    			<a v-else href="#" class="small-text {!!$type!!}" @click="allOffices = !allOffices">I don't care about any other office</a>
 	    		</div>
 	    		<div class="col-sm-3">
-	    			<a class="small-text {!!$type!!}" @click="hourly = !hourly">For today and tomorrow</a>
+	    			<a class="small-text {!!$type!!}" href="#" @click="hourly = !hourly">For today and tomorrow</a>
 	    			 | 
-	    			<a class="small-text {!!$type!!}" @click="weekly = !weekly">For the next week</a>
+	    			<a class="small-text {!!$type!!}" href="#" @click="weekly = !weekly">For the next week</a>
 	    		</div>
 	        </div>
 		</div>
@@ -94,6 +94,7 @@
 					<br>
 					<span>@{{hourlyData.summary}}</span>
 					<br>
+					<i class="wi wi-thermometer"></i>
 					<span v-if="!celsius">@{{hourlyData.temperature}}&deg;F</span>
 					<span v-else>@{{hourlyData.temperatureCelsius}}&deg;C</span>
 				</div>
@@ -111,17 +112,16 @@
 					<br>
 					<span>@{{dailyData.summary}}</span>
 					<br><br>
-					<i class="wi wi-thermometer">
-						<span v-if="!celsius"> @{{dailyData.temperatureLow}}&deg;F to @{{dailyData.temperatureHigh}}&deg;F</span>
-						<span v-else> @{{dailyData.temperatureLowCelsius}}&deg;C to @{{dailyData.temperatureHighCelsius}}&deg;C</span>
-					</i>
+					<i class="wi wi-thermometer"></i>
+					<span v-if="!celsius"> @{{dailyData.temperatureLow}}&deg;F to @{{dailyData.temperatureHigh}}&deg;F</span>
+					<span v-else> @{{dailyData.temperatureLowCelsius}}&deg;C to @{{dailyData.temperatureHighCelsius}}&deg;C</span>
 					<br><br>
-					<i class="wi wi-sunrise"> @{{dailyData.sunrise}}</i>						
-					<i class="wi wi-sunset"> @{{dailyData.sunset}}</i>
+					<i class="wi wi-sunrise"></i> @{{dailyData.sunrise}}
+					<i class="wi wi-sunset"></i> @{{dailyData.sunset}}
 					<br><br>
-					<i class="wi wi-humidity"> @{{dailyData.humidity}}</i>
+					<i class="wi wi-humidity"></i> @{{dailyData.humidity}}
 					<br><br>
-					<i class="wi wi-strong-wind"> @{{dailyData.windSpeed}}km/hr</i>
+					<i class="wi wi-strong-wind"></i> @{{dailyData.windSpeed}}km/hr
 					<br>
 				</div>
 			</div>

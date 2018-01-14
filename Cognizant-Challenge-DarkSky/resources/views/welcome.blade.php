@@ -26,7 +26,7 @@
                     Extra Credit:
                     Using https://darksky.net/dev/docs/time-machine, cycle the color scheme based on the weather for a date range and interval chosen by the user.
                 </div>
-                <a class="btn round" href="{{route('home', ['place'=>'Boulder'])}}">Let's do this!</a>
+                <a class="btn round day-sunny-btn" href="{{route('home', ['place'=>'Boulder'])}}">Let's do this!</a>
             </div>
         </div>
     </body>

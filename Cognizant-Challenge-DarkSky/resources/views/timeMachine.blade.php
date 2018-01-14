@@ -28,8 +28,8 @@
     			<a href="{{route('home', ['place'=>'Boulder'])}}" class="small-text" :class="weatherClass">Back to the weather forecast page</a>
     		</div>
     		<div class="col-sm-4">
-    			<a v-if="!celsius" @click="celsius = !celsius" class="small-text" :class="weatherClass">Convert to &deg;C</a>
-				<a v-else @click="celsius = !celsius" class="small-text" :class="weatherClass">Convert to &deg;F</a>
+    			<a href="#" v-if="!celsius" @click="celsius = !celsius" class="small-text" :class="weatherClass">Convert to &deg;C</a>
+				<a href="#" v-else @click="celsius = !celsius" class="small-text" :class="weatherClass">Convert to &deg;F</a>
     		</div>
         </div>
     	<div class="content">
