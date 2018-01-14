@@ -19,24 +19,26 @@
 
     </head>
     <body  id="app" class="{!!$type!!}-bg {!!$type!!}">
-    	<div class="row header {!!$type!!}-btn">
-    		<div class="col-sm-3">
-    			<a href="{{url('/')}}" class="small-text {!!$type!!}">Main page</a>
-    		</div>
-    		<div class="col-sm-3">
-    			<a v-if="!celsius" @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;C</a>
-				<a v-else @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;F</a>	
-    		</div>
-    		<div class="col-sm-3">
-    			<a v-if="!allOffices" class="small-text {!!$type!!}" @click="allOffices = !allOffices">Show me the details for a different office</a>
-    			<a v-else class="small-text {!!$type!!}" @click="allOffices = !allOffices">I don't care about any other office</a>
-    		</div>
-    		<div class="col-sm-3">
-    			<a class="small-text {!!$type!!}" @click="hourly = !hourly">For today and tomorrow</a>
-    			 | 
-    			<a class="small-text {!!$type!!}" @click="weekly = !weekly">For the next week</a>
-    		</div>
-        </div>
+    	<div class="header">
+	    	<div class="row {!!$type!!}-btn">
+	    		<div class="col-sm-3">
+	    			<a href="{{url('/')}}" class="small-text {!!$type!!}">Main page</a>
+	    		</div>
+	    		<div class="col-sm-3">
+	    			<a v-if="!celsius" @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;C</a>
+					<a v-else @click="celsius = !celsius" class="small-text {!!$type!!}">Convert to &deg;F</a>	
+	    		</div>
+	    		<div class="col-sm-3">
+	    			<a v-if="!allOffices" class="small-text {!!$type!!}" @click="allOffices = !allOffices">Show me the details for a different office</a>
+	    			<a v-else class="small-text {!!$type!!}" @click="allOffices = !allOffices">I don't care about any other office</a>
+	    		</div>
+	    		<div class="col-sm-3">
+	    			<a class="small-text {!!$type!!}" @click="hourly = !hourly">For today and tomorrow</a>
+	    			 | 
+	    			<a class="small-text {!!$type!!}" @click="weekly = !weekly">For the next week</a>
+	    		</div>
+	        </div>
+		</div>
         <div class="content" v-if="allOffices">
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Boulder'])}}">Boulder Office</a>
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'India'])}}">Bangalore Office</a>
@@ -80,36 +82,29 @@
 	        <h2 class="subheading">
 	        	<span>Take me to the <a class="{!!$type!!}" href="{{route('timeMachine')}}"><u>extra credit!</u></a></span>
 	        </h2>
-
-			<div class="content row" v-show="hourly">							
-				<div class="content" id="by-hour">
-					<div class="subheading">
-						<u>Here's the forecast for the next 48 hours</u>
-					</div>
+	        <br><br>
+			<div class="content row" v-show="hourly" id="by-hour">
+				<div class="subheading">
+					For the next 48 hours: {{$forecast->hourly->summary}}
+				</div>	
+				<div class="card-small col-sm-3 border-double" v-for="hourlyData in hourlyObject">
+					<b>@{{hourlyData.time}}</b>
+					<br><br>
+					<i class="@{{hourlyData.icon}}"></i>
 					<br>
-					<div class="subheading">
-						{{$forecast->hourly->summary}}
-					</div>	
-					<!-- <template > -->
-						<div class="card-small col-sm-3 border-double" v-for="hourlyData in hourlyObject">
-							<b>@{{hourlyData.time}}</b>
-							<br><br>
-							<i class="@{{hourlyData.icon}}"></i>
-							<br>
-							<span>@{{hourlyData.summary}}</span>
-							<br>
-							<span v-if="!celsius">@{{hourlyData.temperature}}&deg;F</span>
-							<span v-else>@{{hourlyData.temperatureCelsius}}&deg;C</span>
-						</div>
-					<!-- </template> -->
+					<span>@{{hourlyData.summary}}</span>
+					<br>
+					<span v-if="!celsius">@{{hourlyData.temperature}}&deg;F</span>
+					<span v-else>@{{hourlyData.temperatureCelsius}}&deg;C</span>
 				</div>
 			</div>
 			
-			<div class="container row" v-show="weekly" >
+			
+			<div class="content row" v-show="weekly" >
 				<div class="subheading">
-					<u>Here's the forecast for the next week</u>
+					Here's the forecast for the next week
 				</div>
-				<div class="content border-double card col-sm-3 col-sm-offset-1" id="by-week" v-for="dailyData in dailyObject">
+				<div class="border-double card col-sm-3 col-sm-offset-1" id="by-week" v-for="dailyData in dailyObject">
 					<b>@{{dailyData.time}}</b>
 					<br><br>
 					<i class="@{{dailyData.icon}}"></i>

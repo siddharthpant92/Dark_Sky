@@ -44,20 +44,18 @@
 	    			</div>
 	    		</div>
 	    		<div class="row">
-					<a :href="url" @click="show = true" class="subheading btn" :class="weatherClass">Get the weather for this date range</a>
-					<div v-if="!d1Selected">
-						<span class="small-text" :class="weatherClass">Start by selecting the start date!</span>
-					</div>
-					<div v-if="!d2Selected">
-						<span class="small-text" :class="weatherClass">Don't forget to select the end date!</span
-					</div>
+					<a :href="url" v-if="d1Selected && d2Selected" @click="show = true" class="subheading btn" :class="weatherClass"><u>Get the weather for this date range</u></a>
+					<span v-else  class="subheading btn" :class="weatherClass">Go ahead and enter the 2 dates</span>
 					<div v-if="show">
-						<span class="small-text" :class="weatherClass">Hang on a bit! It takes time to get the weather!</span>
+						<span class="subheading" :class="weatherClass">Hang on a bit! It takes time to get the weather!</span>
 					</div>
 				</div>
 			</div>
     		<div class="container">
-				<div v-for="data in timeMachineData" class="border-double card col-sm-3 @{{data.type}} @{{data.type}}-bg" v-on:mouseover="test(data.type)">
+    			<div class="subheading" :class="weatherClass">
+    				When the dates and the weather show up, move the mouse over the cards to change the theme based on the forecast of that day!!
+    			</div>
+				<div v-for="data in timeMachineData" class="border-double card col-sm-3 @{{data.type}} @{{data.type}}-bg" v-on:mouseover="changeTheme(data.type)">
 					<p>@{{data.date}}</p>
 					<!-- <span>@{{data.icon}}</span> -->
 					<i class="@{{data.icon_type}}"></i>
@@ -112,9 +110,12 @@
 				var d2 = new Date(this.date2).getTime()/1000;
 				if(!this.d1Selected || !this.d2Selected || this.date2<this.date1)
 				{
-					this.date1 = null;
-					this.date2 = null;
 					window.alert("Select both dates and the end date can't be before the start date!");
+					this.date1 = 'Select the start date';
+					this.date2 = 'Select the end date';
+					this.show = false;
+					this.d1Selected = false;
+					this.d2Selected = false;
 				}
 				else
 				{
@@ -124,7 +125,7 @@
 		},
 		methods:
 		{
-			test: function(type)
+			changeTheme: function(type)
 			{
 				this.weatherClassBackground = type+"-bg";
 				this.weatherClass = type;
