@@ -19,30 +19,29 @@
        	<link rel="stylesheet" type="text/css" href="/css/styles.css" />	
 
     </head>
-    <body id="app">
-    	
+    <body id="app" :class="weatherClassBackground">
     	<div class="content">
     		<div class="container">
 				<div class="col-sm-4 col-sm-offset-2">
-    				<input type="text" class="subheading btn" id="datepicker1" v-model="date1" placeholder="Select start date">
+    				<input type="text" class="subheading btn" id="datepicker1" v-model="date1" placeholder="Select start date" :class="weatherClassBtn">
     			</div>
     			
     			<div class="col-sm-4">
-    				<input type="text" class="subheading btn" id="datepicker2" v-model="date2" placeholder="Select end date">
+    				<input type="text" class="subheading btn" id="datepicker2" v-model="date2" placeholder="Select end date" :class="weatherClassBtn">
     			</div>
-				<a :href="url" @click="show = true" class="subheading btn">Get dates</a>
-				<div v-if="!d1Selected" class="small-text">
+				<a :href="url" @click="show = true" class="subheading btn" :class="weatherClassBtn">Get dates</a>
+				<div v-if="!d1Selected" class="small-text" :class="weatherClassBtn">
 					Start by selecting the start date!
 				</div>
-				<div v-if="!d2Selected" class="small-text">
+				<div v-if="!d2Selected" class="small-text" :class="weatherClassBtn">
 					Don't forget to select the end date!
 				</div>
-				<div v-if="show" class="small-text">
+				<div v-if="show" class="small-text" :class="weatherClassBtn">
 					Hang on a bit! It takes time to predict the weather!
 				</div>
 			</div>
     		<div class="container col-sm-offset-1">
-				<div v-for="data in timeMachineData" class="border-double card col-sm-3 @{{data.type}} @{{data.type}}-bg">
+				<div v-for="data in timeMachineData" class="border-double card col-sm-3 @{{data.type}} @{{data.type}}-bg" v-on:mouseover="test(data.type)">
 					<p>@{{data.date}}</p>
 					<!-- <span>@{{data.icon}}</span> -->
 					<i class="@{{data.icon_type}}"></i>
@@ -53,7 +52,7 @@
 	    			<br><br>
 	    			<i class="wi wi-humidity"> @{{data.humidity}}</i>
 	    			<br><br>
-	    			<i class="wi wi-strong-wind"> @{{data.windSpeed}}</i>
+	    			<i class="wi wi-strong-wind"> @{{data.windSpeed}} km/hr</i>
     			</div>		
 	    	</div>
     	</div>
@@ -77,7 +76,9 @@
 			dateRange: [],
 			url: '',
 			timeMachineData: @json($timeMachineData),
-			celsius: false
+			celsius: false,
+			weatherClassBackground: '',
+			weatherClassBtn: ''
 		},
 		watch:
 		{
@@ -100,6 +101,14 @@
 				{
 					this.url =  "http://localhost:8000/time-machine/"+d1+"/"+d2;
 				}
+			}
+		},
+		methods:
+		{
+			test: function(type)
+			{
+				this.weatherClassBackground = type+"-bg";
+				this.weatherClassBtn = type+"-btn"
 			}
 		}
 	});

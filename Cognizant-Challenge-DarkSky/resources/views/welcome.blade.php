@@ -22,6 +22,9 @@
                     <br>
                     (Hint: The coordinates for our office are approximately 40°00&#39;59.2&quot;N 105°17&#39;09.2&quot;W or
                     40.016457, -105.285884)
+                    <br><br>
+                    Extra Credit:
+                    Using https://darksky.net/dev/docs/time-machine, cycle the color scheme based on the weather for a date range and interval chosen by the user.
                 </div>
                 <a class="btn round" href="{{route('home', ['place'=>'Boulder'])}}">Let's do this!</a>
             </div>
