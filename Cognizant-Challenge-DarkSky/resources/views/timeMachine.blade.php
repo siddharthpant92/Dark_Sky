@@ -20,7 +20,7 @@
 
     </head>
     <body id="app" :class="weatherClassBackground">
-    	<div class="row header" :class="weatherClassBtn">
+    	<div class="header" :class="weatherClassBtn">
     		<div class="col-sm-4">
     			<a href="{{url('/')}}" class="small-text" :class="weatherClass">Main page</a>
     		</div>
@@ -32,6 +32,10 @@
 				<a href="#" v-else @click="celsius = !celsius" class="small-text" :class="weatherClass">Convert to &deg;F</a>
     		</div>
         </div>
+        <br>
+        <br>
+        <br>
+        <br>
     	<div class="content">
     		<div class="container">
     			<div class="row">

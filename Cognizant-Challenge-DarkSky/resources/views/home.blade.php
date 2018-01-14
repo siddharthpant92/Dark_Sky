@@ -39,6 +39,7 @@
 	    		</div>
 	        </div>
 		</div>
+		<br><br><br><br>
         <div class="content" v-if="allOffices">
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Boulder'])}}">Boulder Office</a>
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'India'])}}">Bangalore Office</a>
@@ -64,17 +65,16 @@
     				</div>
     			</div>
     			<br><br>
-    			<div class="content">
-    				<div class="col-sm-4">
-						<b>Feels like: </b> 
-    					<span v-if="!celsius">@{{farenFeelsTemp}}&deg;F</span>
-    					<span v-else>@{{celsiusFeelsTemp}}&deg;C</span>	    					
+    			<div class="row subheading">
+					<div class="col-sm-4">
+						<span v-if="!celsius">Feels like: @{{farenFeelsTemp}}&deg;F</span>
+						<span v-else>Feels like: @{{celsiusFeelsTemp}}&deg;C</span>	    					
 					</div>
 					<div class="col-sm-4">
-						<b>Humidity</b> is {{$forecast->currently->humidity}}
+						<span>Humidity: {{$forecast->currently->humidity}}</span>
 					</div>
 					<div class="col-sm-4">
-						<b>Wind Speed</b> is {{$forecast->currently->windSpeed}}km/hr
+						<span>Wind Speed: {{$forecast->currently->windSpeed}}km/hr</span>
 					</div>
 				</div>
 			</div>

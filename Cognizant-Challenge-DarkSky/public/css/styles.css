@@ -110,6 +110,7 @@
     transition: 0.3s;
 }
 
+
 .header
 {
 	line-height: 60px;
@@ -120,6 +121,7 @@
 	position: fixed;
 	top: 0;
 	width: 100%;
+	z-index: 100; /*This makes the navbar on a higher Z plane, so your content scrolls underneath it*/
 }
 
 /*___Clear night___*/
@@ -146,7 +148,6 @@
 {
 	background-color: #09B7F5;
     color: black;
-    opacity: 0.8;
     font-weight: bold;
 }
 .day-sunny-bg
@@ -167,7 +168,6 @@
 {
 	color: 	black;
 	background-color: #696969;
-	opacity: 0.8;
 }
 .cloud-bg
 {
@@ -187,7 +187,6 @@
 {
 	color: white;
 	background-color: #2F4F4F;
-	opacity: 0.8;
 }
 .rain-bg
 {
@@ -208,7 +207,7 @@
 {
 	color: #00008B;
 	background-color: #87CEFA;
-	opacity: 0.8;
+	/*opacity: 0.8;*/
 }
 .snow-bg
 {
