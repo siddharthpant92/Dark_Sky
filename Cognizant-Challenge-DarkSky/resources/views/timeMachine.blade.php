@@ -20,6 +20,18 @@
 
     </head>
     <body id="app" :class="weatherClassBackground">
+    	<div class="row header" :class="weatherClassBtn">
+    		<div class="col-sm-4">
+    			<a href="{{url('/')}}" class="small-text" :class="weatherClass">Main page</a>
+    		</div>
+    		<div class="col-sm-4">
+    			<a href="{{route('home', ['place'=>'Boulder'])}}" class="small-text" :class="weatherClass">Back to the weather forecast page</a>
+    		</div>
+    		<div class="col-sm-4">
+    			<a v-if="!celsius" @click="celsius = !celsius" class="small-text" :class="weatherClass">Convert to &deg;C</a>
+				<a v-else @click="celsius = !celsius" class="small-text" :class="weatherClass">Convert to &deg;F</a>
+    		</div>
+        </div>
     	<div class="content">
     		<div class="container">
     			<div class="row">
@@ -40,7 +52,7 @@
 						<span class="small-text" :class="weatherClass">Don't forget to select the end date!</span
 					</div>
 					<div v-if="show">
-						<span class="small-text" :class="weatherClass">Hang on a bit! It takes time to predict the weather!</span>
+						<span class="small-text" :class="weatherClass">Hang on a bit! It takes time to get the weather!</span>
 					</div>
 				</div>
 			</div>
@@ -52,7 +64,8 @@
 					<br><br>
 	    			<span> @{{data.summary}}</span>
 	    			<br><br>
-	    			<i class="wi wi-thermometer"> @{{data.temperatureLow}}&deg;F - @{{data.temperatureHigh}}&deg;F</i>
+	    			<i v-if="!celsius" class="wi wi-thermometer"> @{{data.temperatureLow}}&deg;F - @{{data.temperatureHigh}}&deg;F</i>
+	    			<i v-else class="wi wi-thermometer"> @{{data.temperatureLowCelsius}}&deg;C - @{{data.temperatureHighCelsius}}&deg;C</i>
 	    			<br><br>
 	    			<i class="wi wi-humidity"> @{{data.humidity}}</i>
 	    			<br><br>
@@ -72,6 +85,7 @@
 		el: "#app",
 		data:
 		{
+			celsius: false,
 			show: false,
 			d1Selected: false,
 			d2Selected: false,
