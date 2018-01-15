@@ -50,13 +50,51 @@ class Controller extends BaseController
     	$forecast = $this->getWeather($latitude, $longitude);
 
     	//Setting up based on the icon type
-    	list($icon_type, $type) = $this->getIconType($forecast->currently->icon);
+        if(!isset($forecast->currently->icon) || !isset($forecast->currently)) //If currently data point doesn'e even exist
+        {
+            $icon_type = "wi wi-cloudy";
+            $type = "cloud";
+        }
+        else
+        {
+    	   list($icon_type, $type) = $this->getIconType($forecast->currently->icon);
+        }
     	
     	//Constructing object to get the time and weather after 12hours, 24hours, 36hours, 48hours
-    	$hourly = $this->getHourlyData($forecast->hourly->data, $place);
+        if(!isset($forecast->hourly->data) || !isset($forecast->hourly)) //If hourly data point doesn't even exist
+        {
+            //$hourly is the object being passed to the view
+            $hourly[0]['time'] = "No date available";
+            $hourly[0]['summary'] = "No summary available";
+            $hourly[0]['temperature'] = "N/A";
+            $hourly[0]['temperatureCelsius'] = "N/A";
+            $hourly["$count"]['icon'] = "wi wi-cloudy";
+        }
+        else
+        {
+    	   $hourly = $this->getHourlyData($forecast->hourly->data, $place);
+        }
 
         //Constructing object to get the time and weather for each day in the next week
-        $daily =  $this->getDailyData($forecast->daily->data, $place);
+        if(!isset($forecast->daily->data) || !isset($forecast->daily)) //If daily data point doesn't even exist
+        {
+            //$daily is the object being passed to the view
+            $daily[0]['time'] = "No date available";
+            $daily[0]['summary'] = "No summary available";
+            $daily[0]['temperatureHigh'] = "N/A";
+            $daily[0]['temperatureHighCelsius'] = "N/A";
+            $daily[0]['temperatureLow'] = "N/A";
+            $daily[0]['temperatureLowCelsius'] = "N/A";
+            $daily[0]['sunrise'] = "N/A";
+            $daily[0]['sunset'] = "N/A";
+            $daily[0]['humidity'] = "N/A";
+            $daily[0]['windSpeed'] = "N/A";
+            $daily[0]['icon'] = "N/A";
+        }
+        else
+        {
+            $daily =  $this->getDailyData($forecast->daily->data, $place);
+        }
 
        	return view("home", [ 
     		"forecast"=>$forecast,
@@ -114,6 +152,24 @@ class Controller extends BaseController
                 else
                 {
                     $timeMachineData[$counter]['summary'] = $forecast->daily->data[0]->summary;
+                }
+
+                if(!isset($forecast->daily->data[0]->sunriseTime))
+                {
+                    $timeMachineData[$counter]['sunrise'] = "N/A";
+                }
+                else
+                {
+                    $timeMachineData[$counter]['sunrise'] = date("H:i", $forecast->daily->data[0]->sunriseTime - 60*60*7);
+                }
+
+                if(!isset($forecast->daily->data[0]->sunsetTime))
+                {
+                    $timeMachineData[$counter]['sunset'] = "N/A";
+                }
+                else
+                {
+                    $timeMachineData[$counter]['sunset'] = date("H:i", $forecast->daily->data[0]->sunsetTime - 60*60*7);
                 }
                 
 
@@ -278,37 +334,65 @@ class Controller extends BaseController
     	$count = 0;
     	foreach ($data as $hour) 
     	{
-
-            //Time is in UTC which has to be converted
-            if($place === "Boulder")
+            if(!isset($hour->time))
             {
-                //Subtracting 7 hours
-                $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time - 60*60*7);
-            }
-            elseif ($place === "Bangalore")
-            {
-                //Adding 5hr 30min
-                $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time + 60*60*5 + 60*30);
-            }
-            elseif($place === "Melbourne")
-            {
-               //Adding 11hr
-                $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time + 60*60*11);
+                $hourObject["$count"]['time'] = "No date-time available";
             }
             else
             {
-                //London time is same as UTC
-                $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time);
+                //Time is in UTC which has to be converted
+                if($place === "Boulder")
+                {
+                    //Subtracting 7 hours
+                    $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time - 60*60*7);
+                }
+                elseif ($place === "Bangalore")
+                {
+                    //Adding 5hr 30min
+                    $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time + 60*60*5 + 60*30);
+                }
+                elseif($place === "Melbourne")
+                {
+                   //Adding 11hr
+                    $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time + 60*60*11);
+                }
+                else
+                {
+                    //London time is same as UTC
+                    $hourObject["$count"]['time'] = date("d M @ H:i", $hour->time);
+                }
             }
 
+            if(!isset($hour->summary))
+            {   
+                $hourObject["$count"]['summary'] = "No summary available";
+            }
+            else
+            {
+                $hourObject["$count"]['summary'] = $hour->summary;
+            }
 
-    		$hourObject["$count"]['summary'] = $hour->summary;
-    		$hourObject["$count"]['temperature'] = round($hour->temperature);
-            $hourObject["$count"]['temperatureCelsius'] = round(($hour->temperature-32)*5/9);
-
-    		list($icon_type, $type) = $this->getIconType($hour->icon);
-
-    		$hourObject["$count"]['icon'] = $icon_type;
+            if(!isset($hour->temperature))
+            {
+                $hourObject["$count"]['temperature'] = "N/A";
+                $hourObject["$count"]['temperatureCelsius'] = "N/A";
+            }
+            else
+            {
+                $hourObject["$count"]['temperature'] = round($hour->temperature);
+                $hourObject["$count"]['temperatureCelsius'] = round(($hour->temperature-32)*5/9);
+            }
+           
+            if(!isset($hour->icon))
+            {
+                $hourObject["$count"]['icon'] = "wi wi-cloudy";
+            }
+            else
+            {
+                list($icon_type, $type) = $this->getIconType($hour->icon);
+                $hourObject["$count"]['icon'] = $icon_type;    
+            }
+    		
     		$count ++;
     	}
 
@@ -330,44 +414,161 @@ class Controller extends BaseController
     public function getDailyData($data, $place)
     {
         $count = 0;
+
         foreach ($data as $day) 
         {
-            //Time is in UTC which has to be converted
-            if($place === "Boulder")
+            if(!isset($day->time))
             {
-                //Subtracting 7 hours
-                $dayObject["$count"]['time'] = date("D, d M", $day->time - 60*60*7);
-            }
-            elseif ($place === "Bangalore")
-            {
-                //Adding 5hr 30min
-                $dayObject["$count"]['time'] = date("D, d M", $day->time - 60*60*5 + 60*30);
-            }
-            elseif($place === "Melbourne")
-            {
-                //Adding 11hr
-                $dayObject["$count"]['time'] = date("D, d M", $day->time + 60*60*11);
+                $dayObject["$count"]['time'] = "No date-time available";
             }
             else
             {
-                //London time is same as UTC
-                $dayObject["$count"]['time'] = date("D, d M", $day->time);
+                //Time is in UTC which has to be converted
+                if($place === "Boulder")
+                {
+                    //Subtracting 7 hours
+                    $dayObject["$count"]['time'] = date("D, d M", $day->time - 60*60*7);
+                }
+                elseif ($place === "Bangalore")
+                {
+                    //Adding 5hr 30min
+                    $dayObject["$count"]['time'] = date("D, d M", $day->time + 60*60*5 + 60*30);
+                }
+                elseif($place === "Melbourne")
+                {
+                    //Adding 11hr
+                    $dayObject["$count"]['time'] = date("D, d M", $day->time + 60*60*11);
+                }
+                else
+                {
+                    //London time is same as UTC
+                    $dayObject["$count"]['time'] = date("D, d M", $day->time);
+                }
             }
 
+            if(!isset($day->summary))
+            {
+                $dayObject["$count"]['summary'] = "No summary available";
+            }
+            else
+            {
+                $dayObject["$count"]['summary'] = $day->summary;
+            }
 
-            $dayObject["$count"]['summary'] = $day->summary;
-            $dayObject["$count"]['temperatureHigh'] = round($day->temperatureHigh);
-            $dayObject["$count"]['temperatureHighCelsius'] = round(($day->temperatureHigh-32)*5/9);
-            $dayObject["$count"]['temperatureLow'] = round($day->temperatureLow);
-            $dayObject["$count"]['temperatureLowCelsius'] = round(($day->temperatureLow-32)*5/9);
-            $dayObject["$count"]['sunrise'] = date("H:i", $day->sunriseTime - 60*60*7);
-            $dayObject["$count"]['sunset'] = date("H:i", $day->sunsetTime - 60*60*7);
-            $dayObject["$count"]['humidity'] = $day->humidity;
-            $dayObject["$count"]['windSpeed'] = $day->windSpeed;
+            if(!isset($day->temperatureHigh))
+            {
+                $dayObject["$count"]['temperatureHigh'] = "N/A";
+                $dayObject["$count"]['temperatureHighCelsius'] = "N/A";
+            }
+            else
+            {
+                $dayObject["$count"]['temperatureHigh'] = round($day->temperatureHigh);
+                $dayObject["$count"]['temperatureHighCelsius'] = round(($day->temperatureHigh-32)*5/9);    
+            }
+            
 
-            list($icon_type, $type) = $this->getIconType($day->icon);
+            if(!isset($day->temperatureLow))
+            {
+                $dayObject["$count"]['temperatureLow'] = "N/A";
+                $dayObject["$count"]['temperatureLowCelsius'] = "N/A";
+            }
+            else
+            {
+                $dayObject["$count"]['temperatureLow'] = round($day->temperatureLow);
+                $dayObject["$count"]['temperatureLowCelsius'] = round(($day->temperatureLow-32)*5/9);
+            }
+            
 
-            $dayObject["$count"]['icon'] = $icon_type;
+            if(!isset($day->sunriseTime))
+            {
+                $dayObject["$count"]['sunrise'] = "N/A";
+            }
+            else
+            {
+                //Time is in UTC which has to be converted
+                if($place === "Boulder")
+                {
+                    //Subtracting 7 hours
+                    $dayObject["$count"]['sunrise'] = date("H:i", $day->sunriseTime - 60*60*7);
+                }
+                elseif ($place === "Bangalore")
+                {
+                    //Adding 5hr 30min
+                    $dayObject["$count"]['sunrise'] = date("H:i", $day->sunriseTime + 60*60*5 + 60*30);
+                }
+                elseif($place === "Melbourne")
+                {
+                    //Adding 11hr
+                    $dayObject["$count"]['sunrise'] = date("H:i", $day->sunriseTime + 60*60*11);
+                }
+                else
+                {
+                    //London time is same as UTC
+                    $dayObject["$count"]['sunrise'] = date("H:i", $day->sunriseTime);
+                } 
+            }
+            
+
+            if(!isset($day->sunsetTime))
+            {
+                $dayObject["$count"]['sunset'] = "N/A";
+            }
+            else
+            {
+                //Time is in UTC which has to be converted
+                if($place === "Boulder")
+                {
+                    //Subtracting 7 hours
+                    $dayObject["$count"]['sunset'] = date("H:i", $day->sunsetTime - 60*60*7);
+                }
+                elseif ($place === "Bangalore")
+                {
+                    //Adding 5hr 30min
+                    $dayObject["$count"]['sunset'] = date("H:i", $day->sunsetTime + 60*60*5 + 60*30);
+                }
+                elseif($place === "Melbourne")
+                {
+                    //Adding 11hr
+                    $dayObject["$count"]['sunset'] = date("H:i", $day->sunsetTime + 60*60*11);
+                }
+                else
+                {
+                    //London time is same as UTC
+                    $dayObject["$count"]['sunset'] = date("H:i", $day->sunsetTime);
+                } 
+            }
+            
+
+            if(!isset($day->humidity))
+            {
+                $dayObject["$count"]['humidity'] = "N/A";
+            }
+            else
+            {
+                $dayObject["$count"]['humidity'] = $day->humidity;
+            }
+            
+
+            if(!isset($day->windSpeed))
+            {
+                 $dayObject["$count"]['windSpeed'] = "N/A";
+            }
+            else
+            {
+                $dayObject["$count"]['windSpeed'] = $day->windSpeed;    
+            }
+           
+
+            if(!isset($day->icon))
+            {
+                $dayObject["$count"]['icon'] = "wi wi-cloudy";
+            }
+            else
+            {
+                list($icon_type, $type) = $this->getIconType($day->icon);
+                $dayObject["$count"]['icon'] = $icon_type;
+            }
+           
             $count ++;
         }
         

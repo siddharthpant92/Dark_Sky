@@ -67,6 +67,9 @@
 	    			<span v-if="!celsius" >@{{data.temperatureLow}}&deg;F - @{{data.temperatureHigh}}&deg;F</span>
 	    			<span v-else> @{{data.temperatureLowCelsius}}&deg;C - @{{data.temperatureHighCelsius}}&deg;C</span>
 	    			<br><br>
+	    			<i class="wi wi-sunrise"></i> @{{data.sunrise}}
+					<i class="wi wi-sunset"></i> @{{data.sunset}}
+					<br><br>
 	    			<i class="wi wi-humidity"></i><span> @{{data.humidity}}</span>
 	    			<br><br>
 	    			<i class="wi wi-strong-wind"></i><span> @{{data.windSpeed}} km/hr</span>
