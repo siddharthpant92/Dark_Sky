@@ -63,12 +63,13 @@
 					<br><br>
 	    			<span> @{{data.summary}}</span>
 	    			<br><br>
-	    			<i v-if="!celsius" class="wi wi-thermometer"> @{{data.temperatureLow}}&deg;F - @{{data.temperatureHigh}}&deg;F</i>
-	    			<i v-else class="wi wi-thermometer"> @{{data.temperatureLowCelsius}}&deg;C - @{{data.temperatureHighCelsius}}&deg;C</i>
+	    			<i class="wi wi-thermometer"></i> 
+	    			<span v-if="!celsius" >@{{data.temperatureLow}}&deg;F - @{{data.temperatureHigh}}&deg;F</span>
+	    			<span v-else> @{{data.temperatureLowCelsius}}&deg;C - @{{data.temperatureHighCelsius}}&deg;C</span>
 	    			<br><br>
-	    			<i class="wi wi-humidity"> @{{data.humidity}}</i>
+	    			<i class="wi wi-humidity"></i><span> @{{data.humidity}}</span>
 	    			<br><br>
-	    			<i class="wi wi-strong-wind"> @{{data.windSpeed}} km/hr</i>
+	    			<i class="wi wi-strong-wind"></i><span> @{{data.windSpeed}} km/hr</span>
     			</div>		
 	    	</div>
     	</div>
