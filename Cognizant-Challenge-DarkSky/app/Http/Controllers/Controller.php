@@ -160,33 +160,34 @@ class Controller extends BaseController
     			$icon_type = "wi wi-snow";
     			$type = "snow";
     			break;
-    		case "partly-cloudy-day":
-    			$icon_type = "wi wi-day-cloudy";
-    			$type = "cloud";
-    			break;
-    		default:
-                if (strpos($icon, 'night') !== false) 
-                {
-                    $icon_type = "wi wi-night-clear";
-                    $type = "night-clear";       
-                }
-                elseif (strpos($icon, 'day') !== false) 
-                {
-                    $icon_type = "wi wi-night-clear";
-                    $type = "night-clear";       
-                }
-                elseif (strpos($icon, 'wind') !== false) 
-                {
-                    $icon_type = "wi wi-cloudy-windy";
-                    $type = "cloud";       
-                }
-                else
-                {
-                    $icon_type = "wi wi-day-cloudy";
-                    $type = "cloud";
-                }
-
-    			break;
+            case "sleet":
+                $icon_type = "wi wi-sleet";
+                $type = "snow";
+                break;
+            case "wind":
+                $icon_type = "wi wi-strong-wind";
+                $type = "cloud";
+                break;
+            case "fog":
+                $icon_type = "wi wi-fog";
+                $type = "cloud";
+                break;
+            case "cloudy":
+                $icon_type = "wi wi-cloudy";
+                $type = "cloud";
+                break;
+            case "partly-cloudy-day":
+                $icon_type = "wi wi-day-cloudy";
+                $type = "cloud";
+                break;
+            case "partly-cloudy-night":
+                $icon_type = "wi wi-night-cloudy-high";
+                $type = "night-clear";
+                break;
+            default:
+                $icon_type = "wi wi-rain";
+                $type = "rain";
+                break;
     	}
 
     	return array($icon_type, $type);
