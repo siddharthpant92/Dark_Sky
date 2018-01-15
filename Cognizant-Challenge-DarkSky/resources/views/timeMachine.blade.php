@@ -124,7 +124,7 @@
 				}
 
 				//If the end date is before the start date
-				else if(this.date2<this.date1)
+				else if(new Date(this.date2) < new Date(this.date1))
 				{
 					window.alert("Select both dates and the end date can't be before the start date!");
 					this.date1 = 'Select the start date';
