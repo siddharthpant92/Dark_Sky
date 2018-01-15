@@ -85,22 +85,21 @@
 		el: "#app",
 		data:
 		{
-			celsius: false,
-			show: false,
-			d1Selected: false,
-			d2Selected: false,
-			date1: 'Select the start date',
-			date2: 'Select the end date',
-			dateRange: [],
-			url: '',
-			timeMachineData: @json($timeMachineData),
-			celsius: false,
-			weatherClassBackground: 'day-sunny-bg',
-			weatherClass: 'day-sunny',
-			weatherClassBtn: 'day-sunny-btn'
+			celsius: false, //To display the temperature in Celsius(if true) or Farenheit(if false)
+			show: false, //To show the button which allows the user to get the weather for the date range selected
+			d1Selected: false, //Set to true when the start date has been selected
+			d2Selected: false, //Set to true when the end date has been selected
+			date1: 'Select the start date', //The value of the start date
+			date2: 'Select the end date', //The value of the end date
+			url: '', //The url which displays the weather for the date range, dynamically set based on the dates selected
+			timeMachineData: @json($timeMachineData), //An object containing the weather data
+			weatherClassBackground: 'day-sunny-bg', //Dynamically set class to change the background color theme
+			weatherClass: 'day-sunny', //Dynamically set class to set the general text color theme
+			weatherClassBtn: 'day-sunny-btn' //Dynamically set class to set the button color theme
 		},
 		watch:
 		{
+			//Checking if the start date has been properly selected
 			date1: function()
 			{
 				this.d1Selected = true;
@@ -110,16 +109,21 @@
 					this.d1Selected = false;
 				}
 			},
+			//Checking if the end date has been properly selected
 			date2: function()
 			{
 				this.d2Selected = true;
 				var d1 = new Date(this.date1).getTime()/1000;
 				var d2 = new Date(this.date2).getTime()/1000;
+
+				//If the end date has an empty value
 				if(this.date2 === '')
 				{
 					window.alert('Please enter your end date');
 					this.d2Selected = false;
 				}
+
+				//If the end date is before the start date
 				else if(this.date2<this.date1)
 				{
 					window.alert("Select both dates and the end date can't be before the start date!");
@@ -137,6 +141,7 @@
 		},
 		methods:
 		{
+			//To change the color theme of the page when the user hovers over the card for the weather forecast for a particular day
 			changeTheme: function(type)
 			{
 				this.weatherClassBackground = type+"-bg";
@@ -146,6 +151,7 @@
 		}
 	});
 
+	//3rd party date picker element
 	$(function() 
 	{
 		$( "#datepicker1" ).datepicker();

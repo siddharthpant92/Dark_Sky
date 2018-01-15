@@ -133,16 +133,15 @@
     	el: "#app",
     	data:
     	{
-    		minutely: false,
-    		hourly: false,
-    		weekly: false,
-    		celsius: false,
-    		allOffices: false,
-    		farenTemp: {{$forecast->currently->temperature}},
-    		farenFeelsTemp: Math.round({{$forecast->currently->apparentTemperature}}),
-    		place: "{{$place}}",
-    		dailyObject: @json($daily),
-    		hourlyObject: @json($hourly)
+    		hourly: false, //To display the date for the next 12, 24, 36 and 48 hours
+    		weekly: false, //To display the data for each day in the next week
+    		celsius: false, //To display the temperature in Celsius(if true) or Farenheit(if false)
+    		allOffices: false, //To display the buttons to select another office
+    		farenTemp: {{$forecast->currently->temperature}}, //The actual temperature
+    		farenFeelsTemp: Math.round({{$forecast->currently->apparentTemperature}}), //The 'feels like' temperature
+    		place: "{{$place}}", //The place selected by the user 
+    		dailyObject: @json($daily), //An object containing the weather data for each day
+    		hourlyObject: @json($hourly) //An object containing the weather data for each hour
     	},
     	computed:
     	{

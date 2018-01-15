@@ -17,8 +17,14 @@ class Controller extends BaseController
     //Dark Sky API key
     private $key = "88490773836e03f0b8fa8e4d0511e6d2";
 
+
+    /**
+     * @param  $place [The place the user has selected to view the weather conditions for]
+     * @return [view] [Returns the view which shows the weather forecase for the selected place]
+     */
     public function index($place)
     {
+        //Initializing the latitude and longitude based on the place the user selected
     	if($place === "Boulder")
         {
         	$latitude = 40.016457;
@@ -40,15 +46,16 @@ class Controller extends BaseController
             $longitude = -0.181799;
         }
 
+        //An object which holds all the weather data after the API call
     	$forecast = $this->getWeather($latitude, $longitude);
 
     	//Setting up based on the icon type
     	list($icon_type, $type) = $this->getIconType($forecast->currently->icon);
     	
-    	//Constructing object to get the time and weather after 12hours, 24hours, 36hours, 48hours;
+    	//Constructing object to get the time and weather after 12hours, 24hours, 36hours, 48hours
     	$hourly = $this->getHourlyData($forecast->hourly->data, $place);
 
-        //Constructing object to get the time and weather for each day in the next week;
+        //Constructing object to get the time and weather for each day in the next week
         $daily =  $this->getDailyData($forecast->daily->data, $place);
 
        	return view("home", [ 
@@ -60,7 +67,11 @@ class Controller extends BaseController
             "place"=>$place]);
     }
 
-
+    /**
+     * @param  $date1 [The starting date of the date range the user selected]
+     * @param  $date2 [The ending date of the date range the user selected]
+     * @return [view] [A view with the weather data for the date range selected by the user]
+     */
     public function timeMachine($date1 = null, $date2 = null)
     {
         $counter = 0;
@@ -69,6 +80,7 @@ class Controller extends BaseController
         $latitude = 40.016457;
         $longitude = -105.285884;
         
+        //The first time the user lands here, there is no date range selected
         if(empty($date1) and empty($date2))
         {
             $timeMachineData = null;
@@ -76,7 +88,7 @@ class Controller extends BaseController
         // Calculated date range.
         else
         {
-            //Getting the difference in days
+            //Getting the difference between the dates in days
             $numDays = abs($date1 - $date2)/60/60/24;
             for ($i = 0; $i <= $numDays; $i++) 
             {
@@ -88,7 +100,7 @@ class Controller extends BaseController
             }
 
            
-            // Make API call for each timestamp and the data to a new object
+            // Make API call for each timestamp and add the data to a new object
             $counter = 0;
             foreach ($timeMachineData as $data) 
             {
@@ -110,9 +122,9 @@ class Controller extends BaseController
         }
         
         return view("timeMachine", 
-            [
-                "timeMachineData"=>$timeMachineData
-            ]);
+        [
+            "timeMachineData"=>$timeMachineData
+        ]);
     }
 
 
@@ -123,7 +135,12 @@ class Controller extends BaseController
 
 
 
-
+    /**
+     * @param  $latitude [The latitude of the selected place]
+     * @param  $longitude [The longitude of the selected place]
+     * @param  $timestamp [The UNIX timestamp which is required only for the timeMachine data]
+     * @return $forecast [An Object which contains all the weather date received by the Dark Sky API call]
+     */
     public function getWeather($latitude, $longitude, $timestamp = null)
     {
         if(!$timestamp)
@@ -140,6 +157,10 @@ class Controller extends BaseController
     	return $forecast;
     }
 
+    /**
+     * @param  $icon [The value of the 'icon' datapoint received from the API call]
+     * @return [array] [An array which contains the class name for the required weather icon, and the type which decides which color theme to be used in the view]
+     */
     public function getIconType($icon)
     {
     	switch($icon)
@@ -193,6 +214,11 @@ class Controller extends BaseController
     	return array($icon_type, $type);
     }
 
+    /**
+     * @param  $data [An object which contains the hourly data received from the Dark Sky API call]
+     * @param  $place [The place the user selected]
+     * @return hourObject12Hour [An object which contains the weather data for the intervals of 12, 24, 36 and 48 hours]
+     */
     public function getHourlyData($data, $place)
     {
     	$count = 0;
@@ -242,8 +268,12 @@ class Controller extends BaseController
         return $hourObject12Hour;
     }
 
-
-    public function getDailyData($data, $place = null)
+    /**
+     * @param  $data [An object which contains the daily data received from the Dark Sky API call]
+     * @param  $place [The place selected by the user]
+     * @return $dayObject [An object which contains the weather data for each day returned from the Dark Sky API call]
+     */
+    public function getDailyData($data, $place)
     {
         $count = 0;
         foreach ($data as $day) 
