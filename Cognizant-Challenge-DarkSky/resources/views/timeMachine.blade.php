@@ -34,15 +34,15 @@
     		<div class="container">
     			<div class="row">
 					<div class="col-sm-4 col-sm-offset-2">
-	    				<input type="text" class="subheading btn" id="datepicker1" v-model="date1" :class="weatherClassBtn">
+	    				<input type="text" class="subheading btn round" id="datepicker1" v-model="date1" :class="weatherClassBtn">
 	    			</div>
 	    			
 	    			<div class="col-sm-4">
-	    				<input type="text" class="subheading btn" id="datepicker2" v-model="date2" :class="weatherClassBtn">
+	    				<input type="text" class="subheading btn round" id="datepicker2" v-model="date2" :class="weatherClassBtn">
 	    			</div>
 	    		</div>
 	    		<div class="row">
-					<a :href="url" v-if="d1Selected && d2Selected" @click="show = true" class="subheading btn" :class="weatherClass"><u>Get the weather for this date range</u></a>
+					<a :href="url" v-if="d1Selected && d2Selected" @click="show = true" class="subheading btn round" :class="weatherClassBtn">Get the weather for this date range</a>
 					<span v-else  class="subheading btn" :class="weatherClass">Go ahead and enter the 2 dates</span>
 					<div v-if="show">
 						<span class="subheading" :class="weatherClass">Hang on a bit! It takes time to get the weather!</span>
