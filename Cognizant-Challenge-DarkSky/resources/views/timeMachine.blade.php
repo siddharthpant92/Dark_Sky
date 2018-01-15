@@ -60,7 +60,7 @@
 					<p>@{{data.date}}</p>
 					<!-- <span>@{{data.icon}}</span> -->
 					<i class="@{{data.icon_type}}"></i>
-					<br><br>
+					<br>
 	    			<span> @{{data.summary}}</span>
 	    			<br><br>
 	    			<i class="wi wi-thermometer"></i> 
