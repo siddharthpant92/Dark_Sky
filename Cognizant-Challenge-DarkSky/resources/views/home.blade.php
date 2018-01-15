@@ -35,7 +35,7 @@
 		    	</div>
 	        </div>
 		</div>
-		<br><br><br><br><br>
+		<br><br><br><br><br><br><br>
         <div class="content row" v-if="allOffices">
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Boulder'])}}">Boulder Office</a>
 			<a class="btn round {!!$type!!}-btn" href="{{route('home', ['place'=>'Bangalore'])}}">Bangalore Office</a>
