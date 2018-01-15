@@ -105,22 +105,76 @@ class Controller extends BaseController
             foreach ($timeMachineData as $data) 
             {
                 $forecast = $this->getWeather($latitude, $longitude, $data['timestamp']);
-                $timeMachineData[$counter]['summary'] = $forecast->daily->data[0]->summary;
+
+                //Checking if respective data points exist, if not then setting defailt values
+                if(!isset($forecast->daily->data[0]->summary))
+                {
+                    $timeMachineData[$counter]['summary'] = "No summary";
+                }
+                else
+                {
+                    $timeMachineData[$counter]['summary'] = $forecast->daily->data[0]->summary;
+                }
                 
-                list($icon_type, $type) = $this->getIconType($forecast->daily->data[0]->icon);
-                $timeMachineData[$counter]['icon'] = $forecast->daily->data[0]->icon;
-                $timeMachineData[$counter]['icon_type'] = $icon_type;
-                $timeMachineData[$counter]['type'] = $type;
-                $timeMachineData[$counter]['temperatureHigh'] = round($forecast->daily->data[0]->temperatureHigh);
-                $timeMachineData[$counter]['temperatureHighCelsius'] = round(($forecast->daily->data[0]->temperatureHigh-32)*5/9);
-                $timeMachineData[$counter]['temperatureLow'] = round($forecast->daily->data[0]->temperatureLow);
-                $timeMachineData[$counter]['temperatureLowCelsius'] = round(($forecast->daily->data[0]->temperatureLow-32)*5/9);
-                $timeMachineData[$counter]['humidity'] = $forecast->daily->data[0]->humidity;
-                $timeMachineData[$counter]['windSpeed'] = $forecast->daily->data[0]->windSpeed;
+
+                if(!isset($forecast->daily->data[0]->icon))
+                {
+                    $timeMachineData[$counter]['icon'] = "cloudy";
+                    $timeMachineData[$counter]['icon_type'] = "wi wi-cloudy";
+                    $timeMachineData[$counter]['type'] = "cloud"; 
+                }
+                else
+                {
+                    list($icon_type, $type) = $this->getIconType($forecast->daily->data[0]->icon);
+                    $timeMachineData[$counter]['icon'] = $forecast->daily->data[0]->icon;
+                    $timeMachineData[$counter]['icon_type'] = $icon_type;
+                    $timeMachineData[$counter]['type'] = $type;    
+                }
+
+                if(!isset($forecast->daily->data[0]->temperatureHigh))
+                {
+                    $timeMachineData[$counter]['temperatureHigh'] = "N/A";
+                    $timeMachineData[$counter]['temperatureHighCelsius'] = "N/A";
+                }
+                else
+                {
+                    $timeMachineData[$counter]['temperatureHigh'] = round($forecast->daily->data[0]->temperatureHigh);
+                    $timeMachineData[$counter]['temperatureHighCelsius'] = round(($forecast->daily->data[0]->temperatureHigh-32)*5/9);
+                }
+               
+                if(!isset($forecast->daily->data[0]->temperatureLow))
+                {
+                    $timeMachineData[$counter]['temperatureLow'] = "N/A";
+                    $timeMachineData[$counter]['temperatureLowCelsius'] = "N/A";
+                }
+                else
+                {
+                    $timeMachineData[$counter]['temperatureLow'] = round($forecast->daily->data[0]->temperatureLow);
+                    $timeMachineData[$counter]['temperatureLowCelsius'] = round(($forecast->daily->data[0]->temperatureLow-32)*5/9);
+                }
+
+                if(!isset($forecast->daily->data[0]->humidity))
+                {
+                    $timeMachineData[$counter]['humidity'] = "N/A";
+                }
+                else
+                {
+                    $timeMachineData[$counter]['humidity'] = $forecast->daily->data[0]->humidity;    
+                }
+                
+                if(!isset( $forecast->daily->data[0]->windSpeed))
+                {
+                    $timeMachineData[$counter]['windSpeed'] = "N/A";
+                }
+                else
+                {
+                    $timeMachineData[$counter]['windSpeed'] = $forecast->daily->data[0]->windSpeed;    
+                }
+                
                 $counter++;
             }
         }
-        
+       
         return view("timeMachine", 
         [
             "timeMachineData"=>$timeMachineData
