@@ -89,7 +89,7 @@
 		data:
 		{
 			celsius: false, //To display the temperature in Celsius(if true) or Farenheit(if false)
-			show: false, //To show the button which allows the user to get the weather for the date range selected
+			show: false, //To show the div saying data is being fetched
 			d1Selected: false, //Set to true when the start date has been selected
 			d2Selected: false, //Set to true when the end date has been selected
 			date1: 'Select the start date', //The value of the start date

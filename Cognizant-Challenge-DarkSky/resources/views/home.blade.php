@@ -139,7 +139,7 @@
     		allOffices: false, //To display the buttons to select another office
     		farenTemp: {{$forecast->currently->temperature}}, //The actual temperature
     		farenFeelsTemp: Math.round({{$forecast->currently->apparentTemperature}}), //The 'feels like' temperature
-    		place: "{{$place}}", //The place selected by the user 
+    		place: "{{$place}}", //The place selected by the user, used for time conversion
     		dailyObject: @json($daily), //An object containing the weather data for each day
     		hourlyObject: @json($hourly) //An object containing the weather data for each hour
     	},

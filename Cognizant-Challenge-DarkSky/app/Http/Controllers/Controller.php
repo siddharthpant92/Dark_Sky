@@ -66,7 +66,7 @@ class Controller extends BaseController
             $hourly[0]['summary'] = "No summary available";
             $hourly[0]['temperature'] = "N/A";
             $hourly[0]['temperatureCelsius'] = "N/A";
-            $hourly["$count"]['icon'] = "wi wi-cloudy";
+            $hourly[0]['icon'] = "wi wi-cloudy";
         }
         else
         {
