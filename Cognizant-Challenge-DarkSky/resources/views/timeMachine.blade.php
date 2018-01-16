@@ -105,38 +105,60 @@
 			//Checking if the start date has been properly selected
 			date1: function()
 			{
-				this.d1Selected = true;
-				if(this.date1 === '')
+				var d1 = new Date(this.date1).getTime()/1000;
+				var d2 = new Date(this.date2).getTime()/1000;
+				if(this.date1 === '' || !d1)
 				{
 					window.alert('Please enter your start date');
 					this.d1Selected = false;
 				}
-			},
-			//Checking if the end date has been properly selected
-			date2: function()
-			{
-				this.d2Selected = true;
-				var d1 = new Date(this.date1).getTime()/1000;
-				var d2 = new Date(this.date2).getTime()/1000;
-
-				//If the end date has an empty value
-				if(this.date2 === '')
+				else
 				{
-					window.alert('Please enter your end date');
-					this.d2Selected = false;
+					this.d1Selected = true;
 				}
-
-				//If the end date is before the start date
-				else if(new Date(this.date2) < new Date(this.date1))
+				if(new Date(this.date2) < new Date(this.date1))
 				{
-					window.alert("Select both dates and the end date can't be before the start date!");
+					window.alert("End date can't be before the start date!");
 					this.date1 = 'Select the start date';
 					this.date2 = 'Select the end date';
 					this.show = false;
 					this.d1Selected = false;
 					this.d2Selected = false;
 				}
+				if(this.d1Selected && this.d2Selected)
+				{
+					this.url =  "http://localhost:8000/time-machine/"+d1+"/"+d2;
+				}
+			},
+			//Checking if the end date has been properly selected
+			date2: function()
+			{
+				var d1 = new Date(this.date1).getTime()/1000;
+				var d2 = new Date(this.date2).getTime()/1000;
+
+				//If the end date has an empty value
+				if(this.date2 === '' || !d2)
+				{
+					window.alert('Please enter your end date');
+					this.d2Selected = false;
+				}
 				else
+				{
+					this.d2Selected = true;
+				}
+
+				//If the end date is before the start date
+				if(new Date(this.date2) < new Date(this.date1))
+				{
+					window.alert("End date can't be before the start date!");
+					this.date1 = 'Select the start date';
+					this.date2 = 'Select the end date';
+					this.show = false;
+					this.d1Selected = false;
+					this.d2Selected = false;
+				}
+				
+				if(this.d1Selected && this.d2Selected)
 				{
 					this.url =  "http://localhost:8000/time-machine/"+d1+"/"+d2;
 				}

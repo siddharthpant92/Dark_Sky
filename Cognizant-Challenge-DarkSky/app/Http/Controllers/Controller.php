@@ -12,8 +12,6 @@ use DateTime;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
     //Dark Sky API key
     private $key = "88490773836e03f0b8fa8e4d0511e6d2";
 
@@ -40,7 +38,7 @@ class Controller extends BaseController
             $latitude = -37.818721;
             $longitude = 144.959246;
         }
-        else
+        else //London
         {
             $latitude = 51.519270;
             $longitude = -0.181799;
@@ -50,7 +48,7 @@ class Controller extends BaseController
     	$forecast = $this->getWeather($latitude, $longitude);
 
     	//Setting up based on the icon type
-        if(!isset($forecast->currently->icon) || !isset($forecast->currently)) //If currently data point doesn'e even exist
+        if(!isset($forecast->currently->icon) || !isset($forecast->currently)) //If 'currently' data point doesn't even exist
         {
             $icon_type = "wi wi-cloudy";
             $type = "cloud";
@@ -123,7 +121,7 @@ class Controller extends BaseController
         {
             $timeMachineData = null;
         }
-        // Calculated date range.
+        // Calculate date range and get weather data for each day in that range
         else
         {
             //Getting the difference between the dates in days
@@ -160,6 +158,7 @@ class Controller extends BaseController
                 }
                 else
                 {
+                    //Time is un UTC, so subtracting 7 hours to get MST
                     $timeMachineData[$counter]['sunrise'] = date("H:i", $forecast->daily->data[0]->sunriseTime - 60*60*7);
                 }
 
@@ -169,6 +168,7 @@ class Controller extends BaseController
                 }
                 else
                 {
+                    //Time is un UTC, so subtracting 7 hours to get MST
                     $timeMachineData[$counter]['sunset'] = date("H:i", $forecast->daily->data[0]->sunsetTime - 60*60*7);
                 }
                 
@@ -255,10 +255,12 @@ class Controller extends BaseController
     {
         if(!$timestamp)
         {
+            //Normal weather API url
     	   $api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude";
         }
         else
         {
+            //Time Machine API url
             $api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude, $timestamp";
         }
 
@@ -315,7 +317,7 @@ class Controller extends BaseController
                 $icon_type = "wi wi-night-cloudy-high";
                 $type = "night-clear";
                 break;
-            default:
+            default: //Since future icons include hail, thunderstorm and tornado
                 $icon_type = "wi wi-rain";
                 $type = "rain";
                 break;
@@ -396,7 +398,7 @@ class Controller extends BaseController
     		$count ++;
     	}
 
-        //Since the date is being displayed only at 12 hour intervals, copying those data new points into a separate object
+        //Since the data is being displayed only for 12 hour intervals, copying those data points into a separate object
         $hourObject12Hour[0]=$hourObject['12'];
         $hourObject12Hour[1]=$hourObject['24'];
         $hourObject12Hour[2]=$hourObject['36'];
