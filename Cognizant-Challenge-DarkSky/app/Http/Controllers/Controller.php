@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Models\Weather as Weather;
 use DatePeriod;
 use DateInterval;
 use DateTime;
@@ -48,9 +49,11 @@ class Controller extends BaseController
 			$longitude = -0.181799;
 		}
 
-		//An object which holds all the weather data after the API call
-		$forecast = $this->getWeather($latitude, $longitude);
+		$weather = new Weather();
 
+		//An object which holds all the weather data after the API call
+		$forecast = $weather->getWeather($latitude, $longitude);
+	
 		//Setting up based on the icon type
 		if(!isset($forecast->currently->icon) || !isset($forecast->currently)) //If 'currently' data point doesn't even exist
 		{
@@ -98,6 +101,8 @@ class Controller extends BaseController
 			$daily =  $this->getDailyData($forecast->daily->data, $place);
 		}
 
+		list($forecast, $type, $icon_type, $hourly, $daily, $place) = $weather->parseWeatherData($forecast);
+
 		return view("home", [ 
 			"forecast"=>$forecast,
 			"type"=>$type,
@@ -139,12 +144,13 @@ class Controller extends BaseController
 				$counter++;
 			}
 
-		   
+		   $weather = new Weather();
+
 			// Make API call for each timestamp and add the data to a new object
 			$counter = 0;
 			foreach ($timeMachineData as $data) 
 			{
-				$forecast = $this->getWeather($latitude, $longitude, $data['timestamp']);
+				$forecast = $weather->getWeather($latitude, $longitude, $data['timestamp']);
 
 				//Checking if respective data points exist, if not then setting defailt values
 				if(!isset($forecast->daily->data[0]->summary))
@@ -241,37 +247,6 @@ class Controller extends BaseController
 		]);
 	}
 
-
-
-
-
-
-
-
-
-	/**
-	 * @param  $latitude [The latitude of the selected place]
-	 * @param  $longitude [The longitude of the selected place]
-	 * @param  $timestamp [The UNIX timestamp which is required only for the timeMachine data]
-	 * @return $forecast [An Object which contains all the weather date received by the Dark Sky API call]
-	 */
-	public function getWeather($latitude, $longitude, $timestamp = null)
-	{
-		if(!$timestamp)
-		{
-			//Normal weather API url
-		   $api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude";
-		}
-		else
-		{
-			//Time Machine API url
-			$api = "https://api.darksky.net/forecast/".$this->key."/$latitude, $longitude, $timestamp";
-		}
-
-		$forecast = json_decode(file_get_contents($api));
-
-		return $forecast;
-	}
 
 	/**
 	 * @param  $icon [The value of the 'icon' datapoint received from the API call]
