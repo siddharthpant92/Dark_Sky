@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DatePeriod;
+use DateInterval;
+use DateTime;
 
 class Weather extends Model
 {
@@ -87,6 +90,112 @@ class Weather extends Model
 		}
 
 		return [$type, $icon_type, $hourly, $daily];
+	}
+
+	public function parseTimeMachineData($date1, $date2,  $latitude, $longitude)
+	{
+		//Getting the difference between the dates in days
+		$numDays = abs($date1 - $date2)/60/60/24;
+		for ($i = 0; $i <= $numDays; $i++) 
+		{
+			// echo date('d M Y', strtotime("+{$i} day", $date1)) . '<br />';
+			$date = date('d M Y', strtotime("+{$i} day", $date1));
+			$timeMachineData[$i]['timestamp'] = strtotime($date);
+			$timeMachineData[$i]['date'] = $date;
+		}
+
+	   // Make API call for each timestamp and add the data to a new object
+		foreach ($timeMachineData as $counter=>$data) 
+		{
+			$forecast = $this->getWeather($latitude, $longitude, $data['timestamp']);
+
+			//Checking if respective data points exist, if not then setting defailt values
+			if(!isset($forecast->daily->data[0]->summary))
+			{
+				$timeMachineData[$counter]['summary'] = "No summary";
+			}
+			else
+			{
+				$timeMachineData[$counter]['summary'] = $forecast->daily->data[0]->summary;
+			}
+
+			if(!isset($forecast->daily->data[0]->sunriseTime))
+			{
+				$timeMachineData[$counter]['sunrise'] = "N/A";
+			}
+			else
+			{
+				//Time is un UTC, so subtracting 7 hours to get MST
+				$timeMachineData[$counter]['sunrise'] = date("H:i", $forecast->daily->data[0]->sunriseTime - 60*60*7);
+			}
+
+			if(!isset($forecast->daily->data[0]->sunsetTime))
+			{
+				$timeMachineData[$counter]['sunset'] = "N/A";
+			}
+			else
+			{
+				//Time is un UTC, so subtracting 7 hours to get MST
+				$timeMachineData[$counter]['sunset'] = date("H:i", $forecast->daily->data[0]->sunsetTime - 60*60*7);
+			}
+			
+
+			if(!isset($forecast->daily->data[0]->icon))
+			{
+				$timeMachineData[$counter]['icon'] = "cloudy";
+				$timeMachineData[$counter]['icon_type'] = "wi wi-cloudy";
+				$timeMachineData[$counter]['type'] = "cloud"; 
+			}
+			else
+			{
+				list($icon_type, $type) = $this->getIconType($forecast->daily->data[0]->icon);
+				$timeMachineData[$counter]['icon'] = $forecast->daily->data[0]->icon;
+				$timeMachineData[$counter]['icon_type'] = $icon_type;
+				$timeMachineData[$counter]['type'] = $type;    
+			}
+
+			if(!isset($forecast->daily->data[0]->temperatureHigh))
+			{
+				$timeMachineData[$counter]['temperatureHigh'] = "N/A";
+				$timeMachineData[$counter]['temperatureHighCelsius'] = "N/A";
+			}
+			else
+			{
+				$timeMachineData[$counter]['temperatureHigh'] = round($forecast->daily->data[0]->temperatureHigh);
+				$timeMachineData[$counter]['temperatureHighCelsius'] = round(($forecast->daily->data[0]->temperatureHigh-32)*5/9);
+			}
+		   
+			if(!isset($forecast->daily->data[0]->temperatureLow))
+			{
+				$timeMachineData[$counter]['temperatureLow'] = "N/A";
+				$timeMachineData[$counter]['temperatureLowCelsius'] = "N/A";
+			}
+			else
+			{
+				$timeMachineData[$counter]['temperatureLow'] = round($forecast->daily->data[0]->temperatureLow);
+				$timeMachineData[$counter]['temperatureLowCelsius'] = round(($forecast->daily->data[0]->temperatureLow-32)*5/9);
+			}
+
+			if(!isset($forecast->daily->data[0]->humidity))
+			{
+				$timeMachineData[$counter]['humidity'] = "N/A";
+			}
+			else
+			{
+				$timeMachineData[$counter]['humidity'] = $forecast->daily->data[0]->humidity;    
+			}
+			
+			if(!isset( $forecast->daily->data[0]->windSpeed))
+			{
+				$timeMachineData[$counter]['windSpeed'] = "N/A";
+			}
+			else
+			{
+				$timeMachineData[$counter]['windSpeed'] = $forecast->daily->data[0]->windSpeed;    
+			}
+		}
+
+		return $timeMachineData;
 	}
 
 		/**
