@@ -21,6 +21,19 @@ To create a new laravel project, navigate to the directory you want to create th
     
     laravel new <folder-name>
 
+# Running the project
+
+Run the below command and copy the environment variables needed from `.env.example` into the `.env` file
+```
+touch .env
+```
+After copying the required values, run
+```
+php artisan key:generate
+```
+and make sure that `APP_KEY` now has a value.
+Cope your dark sky api key into the environment file. You will need to create an account to get the api key.
+
 Assuming php has been installed, you can create and host your own development server locally on your system at http://localhost:8000 by navigating to your project directory and typing the following in your command line
     
     php artisan serve

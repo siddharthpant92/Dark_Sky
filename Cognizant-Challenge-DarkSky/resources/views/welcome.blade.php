@@ -17,16 +17,18 @@
 		<div class="intro-body">
 			<div class="content">
 				<div class="intro">
-					Using the Dark Sky API (https://darksky.net/dev/), create a basic app that changes color scheme
+					Using the <a href="https://darksky.net/dev/docs">Dark Sky API</a> create a basic app that changes color scheme
 					depending on current conditions for a given location.
 					<br>
-					(Hint: The coordinates for our office are approximately 40°00&#39;59.2&quot;N 105°17&#39;09.2&quot;W or
+					(Hint: The coordinates for the Boulder office are approximately 40°00&#39;59.2&quot;N 105°17&#39;09.2&quot;W or
 					40.016457, -105.285884)
 					<br><br>
 					Extra Credit:
-					Using https://darksky.net/dev/docs/time-machine, cycle the color scheme based on the weather for a date range and interval chosen by the user.
+					Using the <a href="https://darksky.net/dev/docs/time-machine#time-machine-request">time machine feature</a>, cycle the color scheme based on the weather for a date range and interval chosen by the user.
 				</div>
 				<a class="btn round day-sunny-btn" href="{{route('home', ['place'=>'Boulder'])}}">Let's do this!</a>
+				<br><br><br>
+				<a href="https://github.com/siddharthpant92/Dark_Sky"> Github repo link</a>
 			</div>
 		</div>
 	</body>
