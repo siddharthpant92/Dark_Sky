@@ -2,3 +2,9 @@
 Cognizant-Challenge-DarkSky/\.env
 
 \.DS_Store
+
+composer.phar
+
+Cognizant-Challenge-DarkSky/yarn.lock
+
+Cognizant-Challenge-DarkSky/package-lock.json
